@@ -10,31 +10,35 @@ $(document).ready(function() {
 
   $('form[name=frmRegister]').submit(function(e) {
     e.preventDefault()
+    let isCompanions = $(this).data('type') == 'with-companions'
 
-    let numberOfCompanions = $(this)
-      .find('input[name=number_of_companions]')
-      .val()
+    if (!isCompanions) {
+      let numberOfCompanions = $(this)
+        .find('input[name=number_of_companions]')
+        .val()
 
-    if (
-      !$(this)
-        .find('input[name=terms]')
-        .prop('checked')
-    ) {
-      alert('Please check the terms.')
-      return
-    }
-
-    if (numberOfCompanions > 0) {
-      $('#companionsModal').modal('open')
-      for (var i = 1; i <= numberOfCompanions; i++) {
-        $('.modal-content').append(
-          "<div class='divider'></div>" +
-            $('.template')
-              .html()
-              .replace(/\{id\}/g, i)
-        )
+      if (
+        !$(this)
+          .find('input[name=terms]')
+          .prop('checked')
+      ) {
+        alert('Please check the terms.')
+        return
       }
-      return
+
+      if (numberOfCompanions > 0) {
+        $('.fields-content').html(null)
+        for (var i = 1; i <= numberOfCompanions; i++) {
+          $('.fields-content').append(
+            "<div class='divider'></div>" +
+              $('.template')
+                .html()
+                .replace(/\{id\}/g, i)
+          )
+        }
+        $('#companionsModal').modal('open')
+        return
+      }
     }
 
     $(this)
@@ -44,20 +48,23 @@ $(document).ready(function() {
       .find('button[type=submit]')
       .prop('disabled', true)
 
+    let form_data = isCompanions
+      ? {
+          ...$(this).serializeJSON(),
+          ...$('form[name=frmRegister]:not([data-type=with-companions])').serializeJSON()
+        }
+      : $(this).serializeJSON()
+
     $.ajax({
       context: this,
       type: 'POST',
-      data: $(this).serialize(),
+      data: form_data,
       dataType: 'json'
     })
       .done(function(response) {
         if (response.success) {
           alert('Registered Successfully!')
-          location.href =
-            'mailer?code=' +
-            $(this)
-              .find('input[name=email_address]')
-              .val()
+          location.reload()
         } else {
           if (response.error.errorInfo && response.error.errorInfo[1] == 1062) {
             alert('Already Exists!')
@@ -97,7 +104,12 @@ $(document).ready(function() {
     )
     form_data.append('file', $('input[name=image_reference]').prop('files')[0])
 
+    $(this)
+      .find('button[type=submit]')
+      .prop('disabled', true)
+
     $.ajax({
+      context: this,
       type: 'POST',
       data: form_data,
       contentType: false,
@@ -106,10 +118,15 @@ $(document).ready(function() {
       success: function(response) {
         if (response.success == true) {
           alert('Uploaded!')
+          location.href = './'
         } else {
           alert(response.error)
         }
       }
+    }).always(function() {
+      $(this)
+        .find('button[type=submit]')
+        .prop('disabled', false)
     })
   })
 

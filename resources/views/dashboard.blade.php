@@ -7,16 +7,18 @@
         <thead>
           <tr>
             <th width="10%">ID</th>
-            <th width="40%">Name</th>
-            <th width="25%">Picture</th>
-            <th width="25%">Action</th>
+            <th width="30%">Name</th>
+            <th width="30%">Companion List</th>
+            <th width="15%">Picture</th>
+            <th width="15%">Action</th>
           </tr>
         </thead>
         <tbody>
           @foreach($data as $row)
             <tr>
               <td>{{ $row["data"]->id }}</td>
-              <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }}</td>
+              <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} ({{ $row["data"]->email_address }})</td>
+              <td>{!! $row["companion"] !!}</td>
               <td>
                 @if($row["data"]->reference_file_name)
                   <img class="materialboxed" src="{{ asset('public/references/' . $row["data"]->reference_file_name) }}" height="100px" width="100px" style="object-fit:cover">

@@ -17,9 +17,9 @@ class UploadController extends Controller {
       abort(404);
     }
 
-    $email = $this->getEmail($code);
+    $reference_number = Common::decrypt($code);
 
-    $user = \DB::table('users')->where('email_address', $email)->first();
+    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
     if ($user) {
       return view('upload', ['code' => $code]);
@@ -36,10 +36,10 @@ class UploadController extends Controller {
 
     $request->file->move(public_path('references'), $filename);
 
-    $email = Common::getEmail($request->code);
+    $reference_number = Common::decrypt($request->code);
 
     try {
-      \DB::table('users')->where('email_address', $email)->update([
+      \DB::table('users')->where('reference_number', $reference_number)->update([
         'reference_file_name' => $filename
       ]);
     } catch (QueryException $e) {

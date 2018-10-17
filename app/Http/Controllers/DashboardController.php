@@ -12,7 +12,15 @@ class DashboardController extends Controller {
     $data = [];
 
     foreach ($users as $row) {
-      $data[] = ['data' => $row, 'code' => $encrypter->encrypt($row->email_address)];
+      $companions = \DB::table('companions')->where('id', $row->id)->get();
+
+      $companionList = [];
+
+      foreach ($companions as $companion) {
+        $companionList[] = $companion->first_name . ' ' . $companion->last_name . ' (' . $companion->email_address . ')';
+      }
+
+      $data[] = ['data' => $row, 'code' => $encrypter->encrypt($row->reference_number), 'companion' => join('<br>', $companionList)];
     }
 
     return view('dashboard', ['data' => $data]);

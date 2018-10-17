@@ -19,19 +19,12 @@ class MailController extends Controller {
       abort(404);
     }
 
-    $email = Common::getEmail($code);
+    $reference_number = Common::decrypt($code);
 
-    $user = \DB::table('users')->where('email_address', $email)->first();
+    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
     if ($user) {
-      $encrypter = app('Illuminate\Contracts\Encryption\Encrypter');
-
-      $data = new \stdClass();
-
-      $data->name = $user->first_name . ' ' . $user->last_name;
-      $data->code = $encrypter->encrypt($email);
-
-      \Mail::to($email)->send(new StepMail($data));
+      Common::sendSteps($reference_number);
 
       return redirect('register');
     } else {
@@ -44,31 +37,78 @@ class MailController extends Controller {
    * @return mixed
    */
   protected function sendTicket(Request $request) {
+    ini_set('max_execution_time', 300);
+
     $code = $request->query('code', null);
 
     if (!$code) {
       abort(404);
     }
 
-    $email = Common::getEmail($code);
+    $reference_number = Common::decrypt($code);
 
-    $user = \DB::table('users')->where('email_address', $email)->first();
+    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
-    $img = Image::make(asset('public/img/ticket.jpg'));
-
-    $img->text(str_pad((int) $user->id, 5, '0', STR_PAD_LEFT), 108, 60, function ($font) {
-      $font->file(2);
-      $font->size(100);
-    });
-
-    $name  = $user->first_name . ' ' . $user->last_name;
-    $image = $img->encode('png');
-
-    try {
-      \Mail::to($email)->send(new TicketMail($name, $image));
-      return json_encode(['success' => true]);
-    } catch (\Exception $e) {
-      return json_encode(['success' => false, 'error' => $e->getMessage()]);
+    if (!$user) {
+      abort(404);
     }
+
+    $mails = [
+      [
+        'email' => $user->email_address,
+        'ref'   => $user->reference_number
+      ]
+    ];
+
+    $companions = \DB::table('companions')->where('id', $user->id)->get();
+
+    foreach ($companions as $companion) {
+      $mails[] = ['email' => $companion->email_address, 'ref' => $companion->reference_number];
+    }
+
+    foreach ($mails as $mail) {
+      $img = Image::make(public_path('img/ticket.png'));
+
+      // $img->text($mail['ref'], 20, 20, function ($font) {
+      //   $font->file(public_path('font/Crimson-Roman.ttf'));
+      //   $font->size(64);
+      //   $font->color('#fdf6e3');
+      //   $font->valign('top');
+      // });
+
+      $QRCode = \QrCode::format('png')->size(140)->margin(1)->generate($mail['ref']);
+
+      $img->insert($QRCode, 'bottom-right', 10, 130);
+
+      $name  = $user->first_name . ' ' . $user->last_name;
+      $image = $img->encode('png');
+
+      try {
+        \Mail::to($mail['email'])->send(new TicketMail($name, $image));
+      } catch (\Exception $e) {
+        return json_encode(['success' => false, 'error' => $e->getMessage()]);
+      }
+    }
+
+    return json_encode(['success' => true]);
+  }
+
+  /**
+   * @return mixed
+   */
+  protected function display() {
+    $img = Image::make(public_path('img/ticket1.png'));
+
+    // $img->text(str_pad(1, 5, '0', STR_PAD_LEFT), 20, 20, function ($font) {
+    //   $font->file(public_path('font/Crimson-Roman.ttf'));
+    //   $font->size(64);
+    //   $font->color('#fdf6e3');
+    //   $font->valign('top');
+    // });
+
+    $QRCode = \QrCode::format('png')->size(200)->margin(1)->generate('QR Code Generator for Laravel!');
+
+    $img->insert($QRCode, 'bottom-right', 20, 20);
+    return $img->response('png');
   }
 }

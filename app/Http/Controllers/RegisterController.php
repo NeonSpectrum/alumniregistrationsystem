@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Common;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -19,26 +19,41 @@ class RegisterController extends Controller {
    * @param array $data
    */
   protected function store(Request $request) {
-    // $validator = Validator::make($request->all(), [
-    //   'last_name'      => 'required',
-    //   'first_name'     => 'required',
-    //   'middle_initial' => 'required',
-    //   'email_address'  => 'required|email',
-    //   'contact_number' => 'required',
-    //   'company'        => 'required',
-    //   'job_title'      => 'required'
-    // ]);
-
-    // if ($validator->fails()) {
-    //   return json_encode(['success' => false, 'error' => $validator]);
-    // }
-
     try {
-      $user = User::create(request(['email_address', 'first_name', 'middle_initial', 'last_name', 'contact_number', 'company', 'job_title']));
+      $reference_number = Common::generateReferenceNumber();
+
+      $id = \DB::table('users')->insertGetId([
+        'reference_number' => $reference_number,
+        'email_address'    => $request->email_address,
+        'first_name'       => $request->first_name,
+        'middle_initial'   => $request->middle_initial,
+        'last_name'        => $request->last_name,
+        'contact_number'   => $request->contact_number,
+        'company'          => $request->company,
+        'job_title'        => $request->job_title
+      ]);
+
+      if ($request->companion_email_address) {
+        $length = count($request->companion_email_address);
+        for ($i = 0; $i < $length; $i++) {
+          \DB::table('companions')->insert([
+            'id'               => $id,
+            'reference_number' => Common::generateReferenceNumber(),
+            'email_address'    => $request->companion_email_address[$i],
+            'first_name'       => $request->companion_first_name[$i],
+            'middle_initial'   => $request->companion_middle_initial[$i],
+            'last_name'        => $request->companion_last_name[$i],
+            'company'          => $request->companion_company[$i],
+            'job_title'        => $request->companion_job_titl[$i]
+          ]);
+        }
+      }
+
+      Common::sendSteps($reference_number);
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }
 
-    return json_encode(['success' => true]);
+    return json_encode(['success' => true, 'code' => Common::encrypt($request->email_address)]);
   }
 }
