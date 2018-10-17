@@ -26,6 +26,7 @@ class TicketMail extends Mailable {
    */
   public function build() {
     return $this->from('youngskymann@gmail.com')
+      ->subject('UE Alumni CCSS Ticket')
       ->view('ticket-mail')
       ->with(
         [
