@@ -31,7 +31,7 @@ class StepMail extends Mailable {
    */
   public function build() {
     return $this->from('youngskymann@gmail.com')
-      ->subject('UE Alumni CCSS Steps')
+      ->subject('UE-CCSS Alumni Steps')
       ->view('step-mail')
       ->with(
         [

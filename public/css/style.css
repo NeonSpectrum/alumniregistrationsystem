@@ -1,3 +1,18 @@
+@font-face {
+  font-family: HighStories;
+  src: url('../font/Highstories Sans.otf') format('opentype');
+}
+
+@font-face {
+  font-family: SeaRocks;
+  src: url('../font/Searocks OTF.otf') format('opentype');
+}
+
+@font-face {
+  font-family: LemonMilk;
+  src: url('../font/LemonMilk.otf') format('opentype');
+}
+
 body {
   background: url(../img/background.png);
   background-repeat: no-repeat;
