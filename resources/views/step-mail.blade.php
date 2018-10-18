@@ -1,7 +1,7 @@
 <h4 style="color:purple">PAYMENT INSTRUCTIONS</h4>
-<div style="text-align:center;padding:0 20px;background-color:orange;color:white">
+<div style="text-align:center;padding:0 20px;background:linear-gradient(to bottom, #feccb1 0%,#f17432 100%,#fb955e 100%);color:white">
   Total Due<br>
-  <span style="font-size:20px;font-weight:bold">PHP 280.00</span><br>
+  <span style="font-size:20px;font-weight:bold">PHP {{ number_format($companions->count() * 1000, 2, ".", ",") }}</span><br>
   Status: PENDING
 </div>
 <br>
@@ -28,11 +28,11 @@
   </tr>
   <tr>
     <td width="50%">Amount:</td>
-    <td style="font-weight:bold" width="50%">PHP 280.00</td>
+    <td style="font-weight:bold" width="50%">PHP {{ number_format($companions->count() * 1000, 2, ".", ",") }}</td>
   </tr>
   <tr>
     <td width="50%">Description:</td>
-    <td style="font-weight:bold" width="50%">somewhere</td>
+    <td style="font-weight:bold" width="50%">UE CCSS Alumni Homecoming</td>
   </tr>
   <tr>
     <td width="50%">Deadline:</td>
@@ -42,7 +42,7 @@
 <br>
 <h2 style="color:purple">Step 1: Pay</h2>
 <ol>
-  <li>Fill-up a regular deposit slip and pay exact amount in <b>CASH</b> or <b>ON-US Check</b> (check issued by this same bank) only.</li>
+  <li>Fill-up a regular deposit slip and pay exact amount in <b>CASH</b>.</li>
   <li>Note that some banks may charge a <i>handling fee</i> for deposits in their provincial branches.</li>
 </ol>
 <h2 style="color:purple">Step 2: Validate <span style="font-size:22px;color:red">[>> IMPORTANT <<]</span></h2>
@@ -52,5 +52,5 @@
 <h2 style="color:purple">Step 3: Confirmation</h2>
 <ol>
   <li>Payments are processed at end of the day.</li>
-  <li>We will send a confirmation email to you once processed. If you do not receive one by noon time of the next day, you may call us at (02)655-6820, email help@blabla.ph</li>
+  <li>Once processed, we will send your e-ticket on the email provided. If you do not receive one by the next 2 days, you may call us at (02) 735-6975. Look for Mhel Agbulos or MJ Sarmiento.</li>
 </ol>

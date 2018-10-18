@@ -67,7 +67,7 @@ class MailController extends Controller {
     }
 
     foreach ($mails as $mail) {
-      $img = Image::make(public_path('img/ticket.png'));
+      $img = Image::make(public_path('img/ticket1.png'));
 
       // $img->text($mail['ref'], 20, 20, function ($font) {
       //   $font->file(public_path('font/Crimson-Roman.ttf'));

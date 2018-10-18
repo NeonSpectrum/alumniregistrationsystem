@@ -13,10 +13,13 @@ class Common {
   public static function sendSteps($reference_number) {
     $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
+    $companions = \DB::table('companions')->where('id', $user->id)->get();
+
     $data = new \stdClass();
 
-    $data->user = $user;
-    $data->code = Common::encrypt($user->reference_number);
+    $data->user       = $user;
+    $data->companions = $companions;
+    $data->code       = Common::encrypt($user->reference_number);
 
     \Mail::to($user->email_address)->send(new StepMail($data));
   }
