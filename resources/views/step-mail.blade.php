@@ -52,5 +52,5 @@
 <h2 style="color:purple">Step 3: Confirmation</h2>
 <ol>
   <li>Payments are processed at end of the day.</li>
-  <li>Once processed, we will send your e-ticket on the email provided. If you do not receive one by the next 2 days, you may call us at (02) 735-6975. Look for Mhel Agbulos or MJ Sarmiento.</li>
+  <li>Once processed, we will send your digital ticket on the email provided. If you do not receive one by the next 2 days, you may call us at (02) 735-6975. Look for Mhel Agbulos or MJ Sarmiento.</li>
 </ol>
