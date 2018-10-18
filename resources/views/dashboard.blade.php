@@ -3,6 +3,8 @@
   <div class="nav-wrapper">
     <a href="#" class="brand-logo" style="margin-left:20px;font-size:25px">Alumni Registration</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url('/logs') }}">Logs</a></li>
       <li><a href="{{ url('/logout') }}" onclick="return confirm('Are you sure do you want to logout?')">Logout</a></li>
     </ul>
   </div>
