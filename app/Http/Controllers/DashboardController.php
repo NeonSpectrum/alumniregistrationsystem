@@ -17,7 +17,7 @@ class DashboardController extends Controller {
       $companionList = [];
 
       foreach ($companions as $companion) {
-        $companionList[] = $companion->first_name . ' ' . $companion->last_name . ' (' . $companion->email_address . ')' . ' (' . $companion->reference_number . ')';
+        $companionList[] = $companion->first_name . ' ' . $companion->last_name . ' | ' . $companion->email_address . ' | ' . $companion->reference_number;
       }
 
       $data[] = ['data' => $row, 'code' => $encrypter->encrypt($row->reference_number), 'companion' => join('<br>', $companionList)];

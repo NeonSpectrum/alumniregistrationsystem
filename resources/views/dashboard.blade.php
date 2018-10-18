@@ -32,7 +32,7 @@
         @foreach($data as $row)
           <tr>
             <td>{{ $row["data"]->id }}</td>
-            <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} ({{ $row["data"]->email_address }}) ({{ $row["data"]->reference_number }})</td>
+            <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} | {{ $row["data"]->email_address }} | {{ $row["data"]->reference_number }}</td>
             <td>{!! $row["companion"] !!}</td>
             <td>
               @if($row["data"]->reference_file_name)
