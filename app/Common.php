@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Mail\StepMail;
+use Auth;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class Common {
@@ -23,6 +24,7 @@ class Common {
     $data->date       = date('l, F d, Y', strtotime('+5 weekday'));
 
     \Mail::to($user->email_address)->send(new StepMail($data));
+    \App\Common::createLog('Sent Steps to: ' . $user->email_address);
   }
 
   /**
@@ -73,5 +75,15 @@ class Common {
     }
 
     return $string;
+  }
+
+  /**
+   * @param $action
+   */
+  public static function createLog($action) {
+    \App\Logs::create([
+      'username' => Auth::user()->username,
+      'action'   => $action
+    ]);
   }
 }

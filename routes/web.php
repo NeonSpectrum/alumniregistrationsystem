@@ -24,6 +24,8 @@ Route::post('/login', 'LoginController@process');
 
 Route::get('logout', 'LoginController@logout');
 
+Route::get('logs', 'LogController@show');
+
 Route::get('/register', 'RegisterController@create')->name('register');
 Route::post('/register', 'RegisterController@store');
 

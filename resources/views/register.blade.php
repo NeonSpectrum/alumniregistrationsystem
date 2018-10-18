@@ -22,16 +22,16 @@
           <div class="card-content">
             <div class="row">
               <div class="input-field col s5">
-                <input id="last_name" name="last_name" type="text" class="validate" required>
-                <label for="last_name">First Name</label>
+                <input id="first_name" name="first_name" type="text" class="validate" required>
+                <label for="first_name">First Name</label>
               </div>
               <div class="input-field col s2">
                 <input id="middle_initial" name="middle_initial" type="text" class="validate" required>
                 <label for="middle_initial">Middle Initial</label>
               </div>
               <div class="input-field col s5">
-                <input id="first_name" name="first_name" type="text" class="validate" required>
-                <label for="first_name">Last Name</label>
+                <input id="last_name" name="last_name" type="text" class="validate" required>
+                <label for="last_name">Last Name</label>
               </div>
               <div class="input-field col s4">
                 <input id="nickname" name="nickname" type="text" class="validate" required>

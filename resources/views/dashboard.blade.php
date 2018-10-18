@@ -14,9 +14,9 @@
       <div class="actions">
         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
       </div>
-      <input type="file" name="uploadExcel" style="display:none">
     </div>
-    <table class="datatable">
+    <table class
+    ="datatable">
       <thead>
         <tr>
           <th width="10%">ID</th>

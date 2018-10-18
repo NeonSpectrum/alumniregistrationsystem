@@ -92,6 +92,7 @@ class MailController extends Controller {
 
       try {
         \Mail::to($mail['email'])->send(new TicketMail($name, $image));
+        \App\Common::createLog('Sent Ticket to: ' . $mail['email']);
       } catch (\Exception $e) {
         return json_encode(['success' => false, 'error' => $e->getMessage()]);
       }
