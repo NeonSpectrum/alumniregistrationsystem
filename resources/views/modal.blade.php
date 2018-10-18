@@ -31,7 +31,7 @@
         <label for="companion_job_title_{id}">Job Title</label>
       </div>
       <div class="input-field col s6">
-        <input id="companion_batch_{id}" name="companion_batch[]" type="text" class="validate" required>
+        <input id="companion_batch_{id}" name="companion_batch[]" type="number" class="validate" required>
         <label for="companion_batch_{id}">Batch (Year)</label>
       </div>
     </div>
