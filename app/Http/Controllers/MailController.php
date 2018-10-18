@@ -65,7 +65,12 @@ class MailController extends Controller {
     $companions = \DB::table('companions')->where('id', $user->id)->get();
 
     foreach ($companions as $companion) {
-      $mails[] = ['email' => $companion->email_address, 'ref' => $companion->reference_number, 'first_name', => $companion->first_name, 'last_name' => $companion->last_name];
+      $mails[] = [
+        'email'      => $companion->email_address,
+        'ref'        => $companion->reference_number,
+        'first_name' => $companion->first_name,
+        'last_name'  => $companion->last_name
+      ];
     }
 
     foreach ($mails as $mail) {
