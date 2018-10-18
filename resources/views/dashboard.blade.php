@@ -21,8 +21,8 @@
     ="datatable">
       <thead>
         <tr>
-          <th width="10%">ID</th>
-          <th width="30%">Name</th>
+          <th width="5%">ID</th>
+          <th width="35%">Name</th>
           <th width="30%">Companion List</th>
           <th width="15%">Picture</th>
           <th width="15%">Action</th>
@@ -32,7 +32,7 @@
         @foreach($data as $row)
           <tr>
             <td>{{ $row["data"]->id }}</td>
-            <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} ({{ $row["data"]->email_address }})</td>
+            <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} ({{ $row["data"]->email_address }}) ({{ $row["data"]->reference_number }})</td>
             <td>{!! $row["companion"] !!}</td>
             <td>
               @if($row["data"]->reference_file_name)
