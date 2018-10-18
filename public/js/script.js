@@ -8,26 +8,38 @@ $(document).ready(function() {
   $('.materialboxed').materialbox()
   $('#companionsModal').modal()
 
-  $('.datatable').DataTable({
-    oLanguage: {
-      sStripClasses: '',
-      sSearch: '',
-      sSearchPlaceholder: 'Enter Keywords Here',
-      sInfo: '_START_ -_END_ of _TOTAL_',
-      sLengthMenu:
-        '<span>Rows per page:</span><select class="browser-default">' +
-        '<option value="10">10</option>' +
-        '<option value="20">20</option>' +
-        '<option value="30">30</option>' +
-        '<option value="40">40</option>' +
-        '<option value="50">50</option>' +
-        '<option value="-1">All</option>' +
-        '</select></div>'
-    },
-    bAutoWidth: false,
-    search: {
-      smart: false
-    }
+  $('form[name=frmLogin]').submit(function(e) {
+    e.preventDefault()
+
+    $(this)
+      .find('input')
+      .prop('readonly', true)
+    $(this)
+      .find('button[type=submit]')
+      .prop('disabled', true)
+
+    $.ajax({
+      context: this,
+      type: 'POST',
+      url: main_url + '/login',
+      data: $(this).serialize(),
+      dataType: 'json'
+    })
+      .done(function(response) {
+        if (response.success) {
+          location.href = './dashboard'
+        } else {
+          alert(response.error)
+        }
+      })
+      .always(function() {
+        $(this)
+          .find('input')
+          .prop('readonly', false)
+        $(this)
+          .find('button[type=submit]')
+          .prop('disabled', false)
+      })
   })
 
   $('form[name=frmRegister]').submit(function(e) {
@@ -176,38 +188,26 @@ $(document).ready(function() {
       $(this).html(html)
     })
   })
-})
 
-$('form[name=frmLogin]').submit(function(e) {
-  e.preventDefault()
-
-  $(this)
-    .find('input')
-    .prop('readonly', true)
-  $(this)
-    .find('button[type=submit]')
-    .prop('disabled', true)
-
-  $.ajax({
-    context: this,
-    type: 'POST',
-    url: main_url + '/login',
-    data: $(this).serialize(),
-    dataType: 'json'
+  $('.datatable').DataTable({
+    oLanguage: {
+      sStripClasses: '',
+      sSearch: '',
+      sSearchPlaceholder: 'Enter Keywords Here',
+      sInfo: '_START_ -_END_ of _TOTAL_',
+      sLengthMenu:
+        '<span>Rows per page:</span><select class="browser-default">' +
+        '<option value="10">10</option>' +
+        '<option value="20">20</option>' +
+        '<option value="30">30</option>' +
+        '<option value="40">40</option>' +
+        '<option value="50">50</option>' +
+        '<option value="-1">All</option>' +
+        '</select></div>'
+    },
+    bAutoWidth: false,
+    search: {
+      smart: false
+    }
   })
-    .done(function(response) {
-      if (response.success) {
-        location.href = './dashboard'
-      } else {
-        alert(response.error)
-      }
-    })
-    .always(function() {
-      $(this)
-        .find('input')
-        .prop('readonly', false)
-      $(this)
-        .find('button[type=submit]')
-        .prop('disabled', false)
-    })
 })
