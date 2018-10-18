@@ -55,10 +55,10 @@ class MailController extends Controller {
 
     $mails = [
       [
-        'email'     => $user->email_address,
-        'ref'       => $user->reference_number,
-        'first_name', => $user->first_name,
-        'last_name' => $user->last_name
+        'email'      => $user->email_address,
+        'ref'        => $user->reference_number,
+        'first_name' => $user->first_name,
+        'last_name'  => $user->last_name
       ]
     ];
 
