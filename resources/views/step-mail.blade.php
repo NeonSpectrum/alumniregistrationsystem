@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td width="50%">Amount:</td>
-    <td style="font-weight:bold" width="50%">PHP {{ number_format($data->companions->count() * 1000, 2, ".", ",") }}</td>
+    <td style="font-weight:bold" width="50%">PHP {{ number_format(($data->companions->count() + 1) * 1000, 2, ".", ",") }}</td>
   </tr>
   <tr>
     <td width="50%">Description:</td>
