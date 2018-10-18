@@ -1,7 +1,7 @@
 <h4 style="color:purple">PAYMENT INSTRUCTIONS</h4>
 <div style="text-align:center;padding:0 20px;background:linear-gradient(to bottom, #feccb1 0%,#f17432 100%,#fb955e 100%);color:white">
   Total Due<br>
-  <span style="font-size:20px;font-weight:bold">PHP {{ number_format($companions->count() * 1000, 2, ".", ",") }}</span><br>
+  <span style="font-size:20px;font-weight:bold">PHP {{ number_format($data->companions->count() * 1000, 2, ".", ",") }}</span><br>
   Status: PENDING
 </div>
 <br>
@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td width="50%">Amount:</td>
-    <td style="font-weight:bold" width="50%">PHP {{ number_format($companions->count() * 1000, 2, ".", ",") }}</td>
+    <td style="font-weight:bold" width="50%">PHP {{ number_format($data->companions->count() * 1000, 2, ".", ",") }}</td>
   </tr>
   <tr>
     <td width="50%">Description:</td>
