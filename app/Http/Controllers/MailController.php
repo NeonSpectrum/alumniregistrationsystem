@@ -87,7 +87,7 @@ class MailController extends Controller {
 
       $img->insert($QRCode, 'bottom-right', 20, 20);
 
-      $name  = $mail->first_name . ' ' . $mail->last_name;
+      $name  = $mail['first_name'] . ' ' . $mail['last_name'];
       $image = $img->encode('png');
 
       try {
