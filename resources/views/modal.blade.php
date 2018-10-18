@@ -13,13 +13,9 @@
         <input id="companion_middle_initial_{id}" name="companion_middle_initial[]" type="text" class="validate" required>
         <label for="companion_middle_initial_{id}">Middle Initial</label>
       </div>
-      <div class="input-field col s3">
+      <div class="input-field col s6">
         <input id="companion_nickname_{id}" name="companion_nickname[]" type="text" class="validate" required>
         <label for="companion_nickname_{id}">Nickname</label>
-      </div>
-      <div class="input-field col s3">
-        <input id="companion_batch_{id}" name="companion_batch[]" type="text" class="validate" required>
-        <label for="companion_batch_{id}">Batch (Year)</label>
       </div>
       <div class="input-field col s6">
         <input id="companion_email_address_{id}" name="companion_email_address[]" type="email" class="validate" required>
@@ -33,6 +29,10 @@
       <div class="input-field col s6">
         <input id="companion_job_title_{id}" name="companion_job_title[]" type="text" class="validate">
         <label for="companion_job_title_{id}">Job Title</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="companion_batch_{id}" name="companion_batch[]" type="text" class="validate" required>
+        <label for="companion_batch_{id}">Batch (Year)</label>
       </div>
     </div>
   </div>
