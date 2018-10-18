@@ -76,9 +76,9 @@ class MailController extends Controller {
       //   $font->valign('top');
       // });
 
-      $QRCode = \QrCode::format('png')->size(140)->margin(1)->generate($mail['ref']);
+      $QRCode = \QrCode::format('png')->size(200)->margin(1)->generate($mail['ref']);
 
-      $img->insert($QRCode, 'bottom-right', 10, 130);
+      $img->insert($QRCode, 'bottom-right', 20, 20);
 
       $name  = $user->first_name . ' ' . $user->last_name;
       $image = $img->encode('png');
