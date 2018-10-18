@@ -9,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-use App\Admin;
 
 Route::get('/ ', function () {
   return redirect('/register');
@@ -35,7 +34,3 @@ Route::get('/mailer', 'MailController@display');
 
 Route::get('/upload', 'UploadController@create');
 Route::post('/upload', 'UploadController@store');
-
-Route::get('/registerhere', function () {
-  Admin::create(['username' => 'rnd', 'password' => 'ueccssrnd']);
-});
