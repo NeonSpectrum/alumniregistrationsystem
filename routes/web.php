@@ -16,14 +16,13 @@ Route::get('/ ', function () {
 
 Route::middleware('auth')->group(function () {
   Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
+  Route::get('logs', 'LogController@show')->name('logs');
 });
 
 Route::get('/login', 'LoginController@show')->name('login');
 Route::post('/login', 'LoginController@process');
 
 Route::get('logout', 'LoginController@logout');
-
-Route::get('logs', 'LogController@show');
 
 Route::get('/register', 'RegisterController@create')->name('register');
 Route::post('/register', 'RegisterController@store');
