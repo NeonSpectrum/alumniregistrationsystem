@@ -20,6 +20,7 @@ class Common {
     $data->user       = $user;
     $data->companions = $companions;
     $data->code       = Common::encrypt($user->reference_number);
+    $data->date       = date('l, F d, Y', time() + 86400 * 5);
 
     \Mail::to($user->email_address)->send(new StepMail($data));
   }
