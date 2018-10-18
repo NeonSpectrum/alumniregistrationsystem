@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td width="50%">Acct Type:</td>
-    <td style="font-weight:bold" width="50%">Peso Checking</td>
+    <td style="font-weight:bold" width="50%">Savings</td>
   </tr>
   <tr>
     <td width="50%">Amount:</td>

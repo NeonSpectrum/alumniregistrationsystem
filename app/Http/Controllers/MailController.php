@@ -55,15 +55,17 @@ class MailController extends Controller {
 
     $mails = [
       [
-        'email' => $user->email_address,
-        'ref'   => $user->reference_number
+        'email'     => $user->email_address,
+        'ref'       => $user->reference_number,
+        'first_name', => $user->first_name,
+        'last_name' => $user->last_name
       ]
     ];
 
     $companions = \DB::table('companions')->where('id', $user->id)->get();
 
     foreach ($companions as $companion) {
-      $mails[] = ['email' => $companion->email_address, 'ref' => $companion->reference_number];
+      $mails[] = ['email' => $companion->email_address, 'ref' => $companion->reference_number, 'first_name', => $companion->first_name, 'last_name' => $companion->last_name];
     }
 
     foreach ($mails as $mail) {
@@ -80,7 +82,7 @@ class MailController extends Controller {
 
       $img->insert($QRCode, 'bottom-right', 20, 20);
 
-      $name  = $user->first_name . ' ' . $user->last_name;
+      $name  = $mail->first_name . ' ' . $mail->last_name;
       $image = $img->encode('png');
 
       try {
