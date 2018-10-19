@@ -64,7 +64,7 @@
             </div>
           </div>
           <div class="card-action" style="overflow:hidden">
-            <h6 align='center' style="font-weight:bold">Disclaimer</h6>
+            <h6 align='center' style="font-weight:bold">Privacy Notice</h6>
             <p style='text-align:justify;color:#545454;font-size:14px'>
               &quot;The event organizers are collecting information from you as participants for the purposes of registration and overall event management.   By providing your information, you are giving your consent to us to use your information for the aforementioned purposes.
             </p>
