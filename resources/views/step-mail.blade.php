@@ -47,7 +47,7 @@
 </ol>
 <h2 style="color:purple">Step 2: Validate <span style="font-size:22px;color:red">[>> IMPORTANT <<]</span></h2>
 <ol>
-  <li>When deposit is completed, click on this link ({{ url("/upload?code=" . $data->code) }}) and fill up the details within the same day to validate.</li>
+  <li>When deposit is completed, click on this link ({{ url("/upload?code=" . $data->code) }}) and fill up the details within the same day to validate. Include in the deposit slip the given reference number for validation before uploading.</li>
 </ol>
 <h2 style="color:purple">Step 3: Confirmation</h2>
 <ol>
