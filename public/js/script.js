@@ -159,6 +159,15 @@ $(document).ready(function() {
       .find('button[type=submit]')
       .prop('disabled', true)
 
+    swal({
+      title: 'Uploading...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      onOpen: () => {
+        swal.showLoading()
+      }
+    })
+
     $.ajax({
       context: this,
       type: 'POST',
@@ -167,11 +176,17 @@ $(document).ready(function() {
       processData: false,
       dataType: 'json',
       success: function(response) {
+        swal.close()
         if (response.success == true) {
-          alert('Uploaded!')
-          location.href = './'
+          swal({
+            title: 'Success',
+            type: 'success',
+            text: 'Uploaded! We will now verify your bank reference.'
+          }).then(function() {
+            location.href = './'
+          })
         } else {
-          alert(response.error)
+          swal('Error!', response.error, 'error')
         }
       }
     }).always(function() {
@@ -203,6 +218,15 @@ $(document).ready(function() {
       .prop('disabled', true)
     button.html("<i class='material-icons left'>loop</i> SENDING...")
 
+    swal({
+      title: 'Sending...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      onOpen: () => {
+        swal.showLoading()
+      }
+    })
+
     $.ajax({
       context: this,
       type: 'POST',
@@ -211,17 +235,20 @@ $(document).ready(function() {
       dataType: 'json',
       statusCode: {
         401: function(response) {
-          alert('Invalid Password')
+          swal.close()
+          swal('Warning', 'Invalid Password.', 'warning')
           $(this)
             .find('input[name=password]')
             .focus()
         }
       },
       success: function(response) {
+        swal.close()
         if (response.success == true) {
-          alert('Ticket Sent!')
-          $(this).trigger('reset')
-          $('#verifyPasswordModal').modal('close')
+          swal('Ticket Sent!', null, 'success').then(() => {
+            $(this).trigger('reset')
+            $('#verifyPasswordModal').modal('close')
+          })
         } else {
           alert(response.error)
         }
