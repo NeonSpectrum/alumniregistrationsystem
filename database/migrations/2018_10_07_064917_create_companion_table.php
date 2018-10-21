@@ -14,7 +14,7 @@ class CreateCompanionTable extends Migration {
     Schema::create('companions', function (Blueprint $table) {
       $table->unsignedInteger('id');
       $table->foreign('id')->references('id')->on('users');
-      $table->string('reference_number');
+      $table->string('reference_number')->unique();
       $table->string('email_address');
       $table->string('first_name');
       $table->string('middle_initial');
