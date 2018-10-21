@@ -233,6 +233,44 @@ $(document).ready(function() {
       .focus()
   })
 
+  $('.btnResendPayment').click(function() {
+    let code = $(this).data('code')
+
+    swal({
+      title: 'Are you sure do you want to resend the payment instructions?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#26a69a',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then(result => {
+      if (result.value) {
+        swal({
+          title: 'Sending...',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          onOpen: () => {
+            swal.showLoading()
+          }
+        })
+
+        $.ajax({
+          url: 'mailer/steps',
+          data: { code },
+          dataType: 'json',
+          success: function(response) {
+            swal.close()
+            if (response.success == true) {
+              swal('Email sent!', null, 'success')
+            } else {
+              swal('Error', response.error, 'error')
+            }
+          }
+        })
+      }
+    })
+  })
+
   $('form[name=frmVerifyPassword]').submit(function(e) {
     e.preventDefault()
 

@@ -26,9 +26,9 @@ class MailController extends Controller {
     if ($user) {
       Common::sendSteps($reference_number);
 
-      return redirect('register');
+      return json_encode(['success' => true]);
     } else {
-      abort(404);
+      return json_encode(['success' => false, 'error' => 'Invalid Code!']);
     }
   }
 

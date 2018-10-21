@@ -42,7 +42,11 @@
               @endif
             </td>
             <td style="padding: 5px">
-              <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}" style="width:100%">
+              <button class="waves-effect waves-light btn btnResendPayment" data-code="{{ $row['code'] }}" style="width:100%">
+                RESEND INST.
+                <i class="material-icons left">send</i>
+              </button>
+              <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 SEND TICKET
                 <i class="material-icons left">send</i>
               </button>
