@@ -7,7 +7,7 @@ $.ajaxSetup({
 $(document).ready(function() {
   $('.materialboxed').materialbox()
   $('.modal').modal()
-  $('select').formSelect();
+  $('select').formSelect()
 
   $('form[name=frmLogin]').submit(function(e) {
     e.preventDefault()
@@ -90,6 +90,15 @@ $(document).ready(function() {
         }
       : $(this).serializeJSON()
 
+    swal({
+      title: 'Please wait...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      onOpen: () => {
+        swal.showLoading()
+      }
+    })
+
     $.ajax({
       context: this,
       type: 'POST',
@@ -97,14 +106,21 @@ $(document).ready(function() {
       dataType: 'json'
     })
       .done(function(response) {
+        swal.close()
         if (response.success) {
-          alert('Registered Successfully!')
-          location.reload()
+          swal({
+            title: 'Success',
+            type: 'success',
+            text:
+              "You have successfully completed your registration. Kindly check your registered email for the next instructions. If you haven't received any email from us, kindly notify us by calling (02)735-6975."
+          }).then(function() {
+            location.reload()
+          })
         } else {
           if (response.error.errorInfo && response.error.errorInfo[1] == 1062) {
-            alert('Already Exists!')
+            swal('Warning', 'Already Exists!', 'warning')
           } else {
-            alert('There was an error.')
+            swal('Errorx', 'There was an error.', 'error')
             console.log(response.error)
           }
         }
@@ -167,43 +183,53 @@ $(document).ready(function() {
 
   $('.btnSendTicket').click(function() {
     let code = $(this).data('code')
-    $("#verifyPasswordModal").find("input[name=code]").val(code)
-    $("#verifyPasswordModal").modal("open")
-    $("#verifyPasswordModal").find("input[name=password]").focus()
+    $('#verifyPasswordModal')
+      .find('input[name=code]')
+      .val(code)
+    $('#verifyPasswordModal').modal('open')
+    $('#verifyPasswordModal')
+      .find('input[name=password]')
+      .focus()
   })
 
-  $("form[name=frmVerifyPassword]").submit(function(e){
+  $('form[name=frmVerifyPassword]').submit(function(e) {
     e.preventDefault()
 
-    let button = $(this).find("button[type=submit]")
+    let button = $(this).find('button[type=submit]')
     let html = button.html()
 
-    $(this).find("button").prop("disabled", true)
+    $(this)
+      .find('button')
+      .prop('disabled', true)
     button.html("<i class='material-icons left'>loop</i> SENDING...")
 
     $.ajax({
       context: this,
-      type: "POST",
+      type: 'POST',
       url: 'mailer/ticket',
       data: $(this).serialize(),
       dataType: 'json',
       statusCode: {
-        401: function (response) {
-          alert("Invalid Password");
-          $(this).find("input[name=password]").focus()
+        401: function(response) {
+          alert('Invalid Password')
+          $(this)
+            .find('input[name=password]')
+            .focus()
         }
       },
       success: function(response) {
         if (response.success == true) {
           alert('Ticket Sent!')
-          $(this).trigger("reset")
-          $("#verifyPasswordModal").modal("close")
+          $(this).trigger('reset')
+          $('#verifyPasswordModal').modal('close')
         } else {
           alert(response.error)
         }
       }
     }).always(function() {
-      $(this).find("button").prop("disabled", false)
+      $(this)
+        .find('button')
+        .prop('disabled', false)
       button.html(html)
     })
   })

@@ -4,6 +4,7 @@
   <script src="{{ asset('public/js/materialize.min.js') }}"></script>
   <script src="{{ asset('public/js/datatables.min.js') }}"></script>
   <script src="{{ asset('public/js/datatable-custom.js') }}"></script>
-  <script src="{{ asset('public/js/script.js') }}"></script>
+  <script src="{{ asset('public/js/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ asset('public/js/script.js') }}?v={{ filemtime(public_path('js/script.js')) }}"></script>
 </body>
 </html>

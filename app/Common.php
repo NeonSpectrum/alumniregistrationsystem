@@ -82,7 +82,7 @@ class Common {
    */
   public static function createLog($action) {
     \App\Logs::create([
-      'username' => Auth::user()->username,
+      'username' => Auth::user()->username ?? 'N/A',
       'action'   => $action
     ]);
   }
