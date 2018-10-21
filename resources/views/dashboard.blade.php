@@ -41,10 +41,14 @@
                 <span style="color:red;font-style:italic">N/A</span>
               @endif
             </td>
-            <td>
-              <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}">
+            <td style="padding: 5px">
+              <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}" style="width:100%">
                 SEND TICKET
                 <i class="material-icons left">send</i>
+              </button>
+              <button class="waves-effect waves-light btn btnDelete red" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
+                DELETE
+                <i class="material-icons left">delete</i>
               </button>
             </td>
           </tr>
@@ -55,6 +59,7 @@
 </div>
 <div id="verifyPasswordModal" class="modal">
   <form name="frmVerifyPassword" data-type="with-companions">
+    <input type="hidden" name="type">
     <input type="hidden" name="code">
     <div class="modal-content">
       <h4>Verify Password</h4>

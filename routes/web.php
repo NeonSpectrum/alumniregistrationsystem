@@ -10,6 +10,9 @@
 |
  */
 
+use App\Common;
+use Illuminate\Http\Request;
+
 Route::get('/ ', function () {
   return redirect('/register');
 });
@@ -33,3 +36,31 @@ Route::get('/mailer', 'MailController@display');
 
 Route::get('/upload', 'UploadController@create');
 Route::post('/upload', 'UploadController@store');
+
+Route::post('/user/delete', function (Request $request) {
+  $code     = $request->code;
+  $password = $request->password;
+
+  if (!$code) {
+    abort(404);
+  } else if (!\Hash::check($password, \Auth::user()->password)) {
+    abort(401);
+  }
+
+  $reference_number = Common::decrypt($code);
+
+  try {
+    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
+
+    if (!$user) {
+      abort(404);
+    }
+
+    \DB::table('companions')->where('id', $user->id)->delete();
+    \DB::table('users')->where('id', $user->id)->delete();
+
+    return json_encode(['success' => true]);
+  } catch (QueryException $e) {
+    return json_encode(['success' => false, 'error' => $e]);
+  }
+});

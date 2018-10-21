@@ -1,6 +1,9 @@
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+  error: function() {
+    swal.close()
   }
 })
 
@@ -201,6 +204,23 @@ $(document).ready(function() {
     $('#verifyPasswordModal')
       .find('input[name=code]')
       .val(code)
+    $('#verifyPasswordModal')
+      .find('input[name=type]')
+      .val('ticket')
+    $('#verifyPasswordModal').modal('open')
+    $('#verifyPasswordModal')
+      .find('input[name=password]')
+      .focus()
+  })
+
+  $('.btnDelete').click(function() {
+    let code = $(this).data('code')
+    $('#verifyPasswordModal')
+      .find('input[name=code]')
+      .val(code)
+    $('#verifyPasswordModal')
+      .find('input[name=type]')
+      .val('delete')
     $('#verifyPasswordModal').modal('open')
     $('#verifyPasswordModal')
       .find('input[name=password]')
@@ -210,16 +230,19 @@ $(document).ready(function() {
   $('form[name=frmVerifyPassword]').submit(function(e) {
     e.preventDefault()
 
+    let type = $(this)
+      .find('input[name=type]')
+      .val()
     let button = $(this).find('button[type=submit]')
     let html = button.html()
 
     $(this)
       .find('button')
       .prop('disabled', true)
-    button.html("<i class='material-icons left'>loop</i> SENDING...")
+    button.html("<i class='material-icons left'>loop</i> " + (type == 'ticket' ? 'SENDING' : 'DELETING') + '...')
 
     swal({
-      title: 'Sending...',
+      title: type == 'ticket' ? 'Sending...' : 'Deleting...',
       allowOutsideClick: false,
       allowEscapeKey: false,
       onOpen: () => {
@@ -230,7 +253,7 @@ $(document).ready(function() {
     $.ajax({
       context: this,
       type: 'POST',
-      url: 'mailer/ticket',
+      url: type == 'ticket' ? 'mailer/ticket' : 'user/delete',
       data: $(this).serialize(),
       dataType: 'json',
       statusCode: {
@@ -241,24 +264,29 @@ $(document).ready(function() {
             .find('input[name=password]')
             .focus()
         }
-      },
-      success: function(response) {
+      }
+    })
+      .done(function(response) {
         swal.close()
         if (response.success == true) {
-          swal('Ticket Sent!', null, 'success').then(() => {
-            $(this).trigger('reset')
-            $('#verifyPasswordModal').modal('close')
+          swal(type == 'ticket' ? 'Ticket Sent!' : 'Deleted Successfully!', null, 'success').then(() => {
+            if (type == 'ticket') {
+              $(this).trigger('reset')
+              $('#verifyPasswordModal').modal('close')
+            } else {
+              location.reload()
+            }
           })
         } else {
           alert(response.error)
         }
-      }
-    }).always(function() {
-      $(this)
-        .find('button')
-        .prop('disabled', false)
-      button.html(html)
-    })
+      })
+      .always(function() {
+        $(this)
+          .find('button')
+          .prop('disabled', false)
+        button.html(html)
+      })
   })
 
   $('.datatable').DataTable({
