@@ -7,7 +7,7 @@
         <form name="frmRegister">
           <div class="center-align" style="background:lightgreen;overflow:auto">
             <div class="col s3">
-              <img src="{{ asset('public/img/ccss_thumb.png') }}" alt="" height="100px">
+              <img src="{{ asset('public/img/ccss_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
             </div>
             <div class="col s6" style="margin-top:15px">
               <span class="white-text card-title" style="font-weight:bold">
@@ -16,48 +16,52 @@
               </span>
             </div>
             <div class="col s3">
-              <img src="{{ asset('public/img/ue_thumb.png') }}" alt="" height="100px">
+              <img src="{{ asset('public/img/ue_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
             </div>
           </div>
           <div class="card-content">
             <div class="row">
-              <div class="input-field col s5">
+              <div class="input-field col m5">
                 <input id="first_name" name="first_name" type="text" class="validate" required>
                 <label for="first_name">First Name</label>
               </div>
-              <div class="input-field col s2">
+              <div class="input-field col m2">
                 <input id="middle_initial" name="middle_initial" type="text" class="validate" required>
                 <label for="middle_initial">Middle Initial</label>
               </div>
-              <div class="input-field col s5">
+              <div class="input-field col m5">
                 <input id="last_name" name="last_name" type="text" class="validate" required>
                 <label for="last_name">Last Name</label>
               </div>
-              <div class="input-field col s4">
+              <div class="input-field col m4">
                 <input id="nickname" name="nickname" type="text" class="validate" required>
                 <label for="nickname">Nickname</label>
               </div>
-              <div class="input-field col s4">
+              <div class="input-field col m4">
                 <input id="number_of_companions" name="number_of_companions" type="number" class="validate" required>
                 <label for="number_of_companions">Number of Companions</label>
               </div>
-              <div class="input-field col s4">
-                <input id="batch" name="batch" type="number" class="validate" required>
+              <div class="input-field col m4">
+                <select id="batch" name="batch">
+                  @for($i = date("Y"); $i >= 1992; $i--)
+                    <option>{{ $i }}</option>
+                  @endfor
+                </select>
                 <label for="batch">Batch (Year)</label>
               </div>
-              <div class="input-field col s6">
+              <div class="input-field col m6">
                 <input id="email_address" name="email_address" type="email" class="validate" required>
                 <label for="email_address">Email Address</label>
               </div>
-              <div class="input-field col s6">
+              <div class="input-field col m6">
                 <input id="contact_number" name="contact_number" type="text" class="validate" required>
                 <label for="contact_number">Contact #</label>
               </div>
-              <div class="input-field col s6">
+              <div class="input-field col m6">
                 <input id="company" name="company" type="text" class="validate" required>
                 <label for="company">Company</label>
               </div>
-              <div class="input-field col s6">
+              <div class="input-field col m6">
                 <input id="job_title" name="job_title" type="text" class="validate" required>
                 <label for="job_title">Job Title</label>
               </div>

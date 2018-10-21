@@ -18,3 +18,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.select-dropdown{
+  overflow-y: auto !important;
+}

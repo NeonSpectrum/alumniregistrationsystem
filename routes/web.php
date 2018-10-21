@@ -28,7 +28,7 @@ Route::get('/register', 'RegisterController@create')->name('register');
 Route::post('/register', 'RegisterController@store');
 
 Route::get('/mailer/steps', 'MailController@sendSteps');
-Route::get('/mailer/ticket', 'MailController@sendTicket');
+Route::post('/mailer/ticket', 'MailController@sendTicket');
 Route::get('/mailer', 'MailController@display');
 
 Route::get('/upload', 'UploadController@create');

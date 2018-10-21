@@ -6,7 +6,8 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   $('.materialboxed').materialbox()
-  $('#companionsModal').modal()
+  $('.modal').modal()
+  $('select').formSelect();
 
   $('form[name=frmLogin]').submit(function(e) {
     e.preventDefault()
@@ -166,26 +167,44 @@ $(document).ready(function() {
 
   $('.btnSendTicket').click(function() {
     let code = $(this).data('code')
-    let html = $(this).html()
+    $("#verifyPasswordModal").find("input[name=code]").val(code)
+    $("#verifyPasswordModal").modal("open")
+    $("#verifyPasswordModal").find("input[name=password]").focus()
+  })
 
-    $(this).prop('disabled', true)
-    $(this).html("<i class='material-icons left'>loop</i> SENDING...")
+  $("form[name=frmVerifyPassword]").submit(function(e){
+    e.preventDefault()
+
+    let button = $(this).find("button[type=submit]")
+    let html = button.html()
+
+    $(this).find("button").prop("disabled", true)
+    button.html("<i class='material-icons left'>loop</i> SENDING...")
 
     $.ajax({
       context: this,
+      type: "POST",
       url: 'mailer/ticket',
-      data: { code },
+      data: $(this).serialize(),
       dataType: 'json',
+      statusCode: {
+        401: function (response) {
+          alert("Invalid Password");
+          $(this).find("input[name=password]").focus()
+        }
+      },
       success: function(response) {
         if (response.success == true) {
           alert('Ticket Sent!')
+          $(this).trigger("reset")
+          $("#verifyPasswordModal").modal("close")
         } else {
           alert(response.error)
         }
       }
     }).always(function() {
-      $(this).prop('disabled', false)
-      $(this).html(html)
+      $(this).find("button").prop("disabled", false)
+      button.html(html)
     })
   })
 
