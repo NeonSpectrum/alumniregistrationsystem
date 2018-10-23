@@ -54,6 +54,6 @@ class RegisterController extends Controller {
       return json_encode(['success' => false, 'error' => $e]);
     }
 
-    return json_encode(['success' => true, 'code' => Common::encrypt($request->email_address)]);
+    return json_encode(['success' => true]);
   }
 }

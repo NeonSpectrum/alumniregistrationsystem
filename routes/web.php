@@ -71,3 +71,27 @@ Route::post('/user/delete', function (Request $request) {
     return json_encode(['success' => false, 'error' => $e]);
   }
 });
+
+Route::post('/user/paid', function (Request $request) {
+  $code = $request->code;
+
+  if (!$code) {
+    abort(404);
+  }
+
+  $reference_number = Common::decrypt($code);
+
+  try {
+    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
+
+    if (!$user) {
+      abort(404);
+    }
+
+    \DB::table('users')->where('id', $user->id)->update(['paid' => 1]);
+
+    return json_encode(['success' => true]);
+  } catch (QueryException $e) {
+    return json_encode(['success' => false, 'error' => $e]);
+  }
+});

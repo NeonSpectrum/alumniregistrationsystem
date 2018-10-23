@@ -28,8 +28,10 @@
             <td>{{ $row["data"]->first_name . " " . $row["data"]->last_name }} | {{ $row["data"]->email_address }} | {{ $row["data"]->reference_number }}</td>
             <td>{!! $row["companion"] !!}</td>
             <td>
-              @if($row["data"]->reference_file_name)
-                <img class="materialboxed" src="{{ asset('public/references/' . $row["data"]->reference_file_name) }}" height="100px" width="100px" style="object-fit:cover">
+              @if(!$row["data"]->reference_file_name)
+                <a class="btnViewPicture" href="#" data-code="{{ $row['code'] }}">
+                  <img src="{{ asset('public/references/1538581018.png') }}" height="100px" width="100px" style="object-fit:cover">
+                </a>
               @else
                 <span style="color:red;font-style:italic">N/A</span>
               @endif
@@ -49,21 +51,5 @@
     </table>
   </div>
 </div>
-<div id="verifyPasswordModal" class="modal">
-  <form name="frmVerifyPassword" data-type="with-companions">
-    <input type="hidden" name="type">
-    <input type="hidden" name="code">
-    <div class="modal-content">
-      <h4>Verify Password</h4>
-      <div class="input-field">
-        <input id="verify_password" name="password" type="password" class="validate">
-        <label for="verify_password">Password</label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-      <button type="submit" class=" waves-effect waves-green btn-flat">Send</button>
-    </div>
-  </form>
-</div>
+@include('dashboard.modal')
 @include('footer')

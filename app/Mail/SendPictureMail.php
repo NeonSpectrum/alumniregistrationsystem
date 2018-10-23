@@ -28,7 +28,7 @@ class SendPictureMail extends Mailable {
    */
   public function build() {
     return $this->from('uecsrnd@gmail.com')
-      ->subject('UE-CCSS Alumni Homecoming Uploads')
+      ->subject('UE-CCSS Alumni Homecoming Deposit Slip')
       ->view('send-picture-mail')
       ->with(
         [

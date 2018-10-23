@@ -9,7 +9,9 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   $('.materialboxed').materialbox()
-  $('.modal').modal()
+  $('.modal').modal({
+    dismissible: false
+  })
   $('select').formSelect()
   $('.dropdown-trigger').dropdown()
 
@@ -256,7 +258,7 @@ $(document).ready(function() {
         })
 
         $.ajax({
-          url: 'mailer/steps',
+          url: main_url + '/mailer/steps',
           data: { code },
           dataType: 'json',
           success: function(response) {
@@ -270,6 +272,20 @@ $(document).ready(function() {
         })
       }
     })
+  })
+
+  $('.btnViewPicture').click(function() {
+    let code = $(this).data('code')
+    let modal = $('#viewPictureModal')
+
+    modal.find('input[name=code]').val(code)
+    modal.find('img').attr(
+      'src',
+      $(this)
+        .find('img')
+        .attr('src')
+    )
+    modal.modal('open')
   })
 
   $('form[name=frmVerifyPassword]').submit(function(e) {
@@ -298,7 +314,7 @@ $(document).ready(function() {
     $.ajax({
       context: this,
       type: 'POST',
-      url: type == 'ticket' ? 'mailer/ticket' : 'user/delete',
+      url: main_url + (type == 'ticket' ? '/mailer/ticket' : '/user/delete'),
       data: $(this).serialize(),
       dataType: 'json',
       statusCode: {
@@ -331,6 +347,46 @@ $(document).ready(function() {
           .find('button')
           .prop('disabled', false)
         button.html(html)
+      })
+  })
+
+  $('form[name=frmViewPicture]').submit(function(e) {
+    e.preventDefault()
+
+    $(this)
+      .find('button')
+      .prop('disabled', true)
+
+    swal({
+      title: 'Please wait...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      onOpen: () => {
+        swal.showLoading()
+      }
+    })
+
+    $.ajax({
+      context: this,
+      type: 'POST',
+      url: main_url + '/user/paid',
+      data: $(this).serialize(),
+      dataType: 'json'
+    })
+      .done(function(response) {
+        swal.close()
+        if (response.success == true) {
+          swal('Marked as Paid!', null, 'success').then(() => {
+            location.reload()
+          })
+        } else {
+          alert(response.error)
+        }
+      })
+      .always(function() {
+        $(this)
+          .find('button')
+          .prop('disabled', true)
       })
   })
 
