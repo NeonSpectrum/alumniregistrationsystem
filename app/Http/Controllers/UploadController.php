@@ -33,8 +33,6 @@ class UploadController extends Controller {
    * @param Request $request
    */
   protected function store(Request $request) {
-    putenv('TMPDIR=/var/www/tmp');
-
     $filename = time() . '.' . $request->file->getClientOriginalExtension();
 
     $request->file->move(public_path('references'), $filename);
@@ -48,7 +46,7 @@ class UploadController extends Controller {
 
       $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
-      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, $request->file));
+      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '\\' . $filename, $request->file));
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }
