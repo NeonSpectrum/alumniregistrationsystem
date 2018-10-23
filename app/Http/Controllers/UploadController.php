@@ -40,11 +40,13 @@ class UploadController extends Controller {
     $reference_number = Common::decrypt($request->code);
 
     try {
-      $user = \DB::table('users')->where('reference_number', $reference_number)->update([
+      \DB::table('users')->where('reference_number', $reference_number)->update([
         'reference_file_name' => $filename
       ]);
 
-      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user[0]->first_name . ' ' . $user[0]->last_name, $request->file));
+      $user = \DB::table('users')->where('reference_number', $reference_number)->first();
+
+      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, $request->file));
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }
