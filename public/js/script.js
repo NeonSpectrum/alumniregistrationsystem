@@ -11,6 +11,7 @@ $(document).ready(function() {
   $('.materialboxed').materialbox()
   $('.modal').modal()
   $('select').formSelect()
+  $('.dropdown-trigger').dropdown()
 
   $('form[name=frmLogin]').submit(function(e) {
     e.preventDefault()

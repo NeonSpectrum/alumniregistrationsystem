@@ -18,7 +18,13 @@ Route::get('/ ', function () {
 });
 
 Route::middleware('auth')->group(function () {
-  Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
+  Route::prefix('/dashboard')->group(function () {
+    Route::get('/', function () {
+      return redirect()->route('dashboard.registered');
+    });
+    Route::get('/registered', 'DashboardController@showRegistered')->name('dashboard.registered');
+    Route::get('/paid', 'DashboardController@showPaid')->name('dashboard.paid');
+  });
   Route::get('logs', 'LogController@show')->name('logs');
 });
 

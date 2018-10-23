@@ -1,18 +1,11 @@
+@php ($active = "dashboard")
+
 @include('header')
-<nav style="background: green">
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo" style="margin-left:20px;font-size:25px">Alumni Registration</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-      <li><a href="{{ url('/logs') }}">Logs</a></li>
-      <li><a href="{{ url('/logout') }}" onclick="return confirm('Are you sure do you want to logout?')">Logout</a></li>
-    </ul>
-  </div>
-</nav>
+@include('navbar')
 <div class="col s12" style="margin: 30px 50px 0 50px">
   <div class="card material-table">
     <div class="table-header">
-      <span class="table-title">List of Registered Guests</span>
+      <span class="table-title">List of Paid Guests (Total: {{ $total }})</span>
       <div class="actions">
         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
       </div>
@@ -42,17 +35,9 @@
               @endif
             </td>
             <td style="padding: 5px">
-              <button class="waves-effect waves-light btn btnResendPayment" data-code="{{ $row['code'] }}" style="width:100%">
-                RESEND INST.
-                <i class="material-icons left">send</i>
-              </button>
               <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 SEND TICKET
                 <i class="material-icons left">send</i>
-              </button>
-              <button class="waves-effect waves-light btn btnDelete red" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
-                DELETE
-                <i class="material-icons left">delete</i>
               </button>
             </td>
           </tr>
