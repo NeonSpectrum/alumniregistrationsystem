@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration {
       $table->string('company');
       $table->string('job_title');
       $table->string('reference_file_name')->nullable();
+      $table->tinyint('paid')->default(0);
+      $table->tinyint('sent')->default(0);
       $table->timestamps();
     });
   }

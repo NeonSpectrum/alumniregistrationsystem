@@ -42,6 +42,8 @@ class UploadController extends Controller {
       \DB::table('users')->where('reference_number', $reference_number)->update([
         'reference_file_name' => $filename
       ]);
+
+      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($name, $request->file));
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }

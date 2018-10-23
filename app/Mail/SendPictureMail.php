@@ -3,10 +3,11 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TicketMail extends Mailable {
+class SendPictureMail extends Mailable {
   use Queueable, SerializesModels;
 
   /**
@@ -26,13 +27,13 @@ class TicketMail extends Mailable {
    */
   public function build() {
     return $this->from('uecsrnd@gmail.com')
-      ->subject('UE-CCSS Alumni Homecoming Digital Ticket')
-      ->view('ticket-mail')
+      ->subject('UE-CCSS Alumni Homecoming Uploads')
+      ->view('send-picture-mail')
       ->with(
         [
           'name' => $this->name
         ])
-      ->attachData($this->image, 'ticket.jpg', [
+      ->attachData($this->image, 'uploads.jpg', [
         'mime' => 'image/jpeg'
       ]);
   }

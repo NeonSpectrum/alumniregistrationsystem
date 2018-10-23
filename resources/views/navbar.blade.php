@@ -11,4 +11,5 @@
 <ul id="dropdown1" class="dropdown-content">
   <li><a href="{{ url('/dashboard/registered') }}">Registered</a></li>
   <li><a href="{{ url('/dashboard/paid') }}">Paid</a></li>
+  <li><a href="{{ url('/dashboard/sentticket') }}">Sent Ticket</a></li>
 </ul>
