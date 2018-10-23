@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Common;
+use App\Mail\SendPictureMail;
 use Illuminate\Http\Request;
 use \Illuminate\Database\QueryException;
 
