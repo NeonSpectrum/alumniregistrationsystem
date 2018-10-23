@@ -38,7 +38,7 @@
                 <label for="nickname">Nickname</label>
               </div>
               <div class="input-field col m4">
-                <input id="number_of_companions" name="number_of_companions" type="number" class="validate" required>
+                <input id="number_of_companions" name="number_of_companions" type="number" class="validate" min="0" value="0" required>
                 <label for="number_of_companions">Number of Companions</label>
               </div>
               <div class="input-field col m4">
