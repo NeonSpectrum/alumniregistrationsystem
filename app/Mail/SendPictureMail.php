@@ -33,8 +33,9 @@ class SendPictureMail extends Mailable {
         [
           'name' => $this->name
         ])
-      ->attach($this->image, 'uploads.jpg', [
-        'mime' => 'image/jpeg'
+      ->attach($this->image->getRealPath(), [
+        'as'   => $this->image->getClientOriginalName(),
+        'mime' => $this->image->getMimeType()
       ]);
   }
 }
