@@ -35,6 +35,8 @@ class UploadController extends Controller {
   protected function store(Request $request) {
     $filename = time() . '.' . $request->file->getClientOriginalExtension();
 
+    $mime = $request->file->getMimeType();
+
     $request->file->move(public_path('references'), $filename);
 
     $reference_number = Common::decrypt($request->code);
@@ -46,7 +48,7 @@ class UploadController extends Controller {
 
       $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
-      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '\\' . $filename, $request->file));
+      \Mail::to('youngskymann@gmail.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '\\' . $filename, $mime));
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }
