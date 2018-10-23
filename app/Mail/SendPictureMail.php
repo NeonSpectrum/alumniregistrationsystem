@@ -15,8 +15,9 @@ class SendPictureMail extends Mailable {
    *
    * @return void
    */
-  public function __construct($name, $image) {
+  public function __construct($name, $path, $image) {
     $this->name  = $name;
+    $this->path  = $path;
     $this->image = $image;
   }
 
@@ -33,7 +34,7 @@ class SendPictureMail extends Mailable {
         [
           'name' => $this->name
         ])
-      ->attach($this->image->getRealPath(), [
+      ->attach($this->path, [
         'as'   => $this->image->getClientOriginalName(),
         'mime' => $this->image->getMimeType()
       ]);
