@@ -287,6 +287,8 @@ $(document).ready(function() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes'
     }).then(result => {
+      if (result.dismiss == 'cancel') return
+
       swal({
         title: 'Please wait...',
         onOpen: () => {
