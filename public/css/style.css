@@ -32,3 +32,11 @@ body {
 div.material-table table tr td {
   word-wrap: break-word;
 }
+
+.modal {
+  max-height: 90% !important;
+}
+
+.modal.modal-fixed-footer {
+  height: 90% !important;
+}

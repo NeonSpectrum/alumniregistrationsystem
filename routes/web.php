@@ -27,6 +27,72 @@ Route::middleware('auth')->group(function () {
     Route::get('/sentticket', 'DashboardController@showSentTicket')->name('dashboard.sentticket');
   });
   Route::get('logs', 'LogController@show')->name('logs');
+
+  Route::post('/user/delete', function (Request $request) {
+    $code     = $request->code;
+    $password = $request->password;
+
+    if (!$code) {
+      abort(404);
+    } else if (!\Hash::check($password, \Auth::user()->password)) {
+      abort(401);
+    }
+
+    $reference_number = Common::decrypt($code);
+
+    try {
+      $user = \DB::table('users')->where('reference_number', $reference_number)->first();
+
+      if (!$user) {
+        abort(404);
+      }
+
+      \DB::table('companions')->where('id', $user->id)->delete();
+      \DB::table('users')->where('id', $user->id)->delete();
+
+      Common::createLog('Deleted User: ' . $user->id);
+
+      return json_encode(['success' => true]);
+    } catch (QueryException $e) {
+      return json_encode(['success' => false, 'error' => $e]);
+    }
+  });
+
+  Route::post('/user/paid', function (Request $request) {
+    $code    = $request->code;
+    $remarks = $request->remarks ?? null;
+
+    if (!$code) {
+      abort(404);
+    }
+
+    $reference_number = Common::decrypt($code);
+
+    try {
+      $user = \DB::table('users')->where('reference_number', $reference_number)->first();
+
+      if (!$user) {
+        abort(404);
+      }
+
+      \DB::table('users')->where('id', $user->id)->update(['paid' => 1, 'remarks' => $remarks]);
+
+      Common::createLog('Marked as paid: ' . $reference_number);
+
+      return json_encode(['success' => true]);
+    } catch (QueryException $e) {
+      return json_encode(['success' => false, 'error' => $e]);
+    }
+  });
+
+  Route::get('/user/{id}', function (Request $request) {
+    return json_encode(\DB::table('users')->where('id', $request->id)->first());
+  });
+
+  Route::get('/user/{id}/companions', function (Request $request) {
+    return json_encode(\DB::table('companions')->where('id', $request->id)->get());
+  });
+
 });
 
 Route::get('/login', 'LoginController@show')->name('login');
@@ -43,60 +109,3 @@ Route::get('/mailer', 'MailController@display');
 
 Route::get('/upload', 'UploadController@create');
 Route::post('/upload', 'UploadController@store');
-
-Route::post('/user/delete', function (Request $request) {
-  $code     = $request->code;
-  $password = $request->password;
-
-  if (!$code) {
-    abort(404);
-  } else if (!\Hash::check($password, \Auth::user()->password)) {
-    abort(401);
-  }
-
-  $reference_number = Common::decrypt($code);
-
-  try {
-    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
-
-    if (!$user) {
-      abort(404);
-    }
-
-    \DB::table('companions')->where('id', $user->id)->delete();
-    \DB::table('users')->where('id', $user->id)->delete();
-
-    Common::createLog('Deleted User: ' . $user->id);
-
-    return json_encode(['success' => true]);
-  } catch (QueryException $e) {
-    return json_encode(['success' => false, 'error' => $e]);
-  }
-});
-
-Route::post('/user/paid', function (Request $request) {
-  $code    = $request->code;
-  $remarks = $request->remarks ?? null;
-
-  if (!$code) {
-    abort(404);
-  }
-
-  $reference_number = Common::decrypt($code);
-
-  try {
-    $user = \DB::table('users')->where('reference_number', $reference_number)->first();
-
-    if (!$user) {
-      abort(404);
-    }
-
-    \DB::table('users')->where('id', $user->id)->update(['paid' => 1, 'remarks' => $remarks]);
-
-    Common::createLog('Marked as paid: ' . $reference_number);
-
-    return json_encode(['success' => true]);
-  } catch (QueryException $e) {
-    return json_encode(['success' => false, 'error' => $e]);
-  }
-});

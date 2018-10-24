@@ -15,7 +15,8 @@ swal.setDefaults({
 $(document).ready(function() {
   $('.materialboxed').materialbox()
   $('.modal').modal({
-    dismissible: false
+    dismissible: false,
+    endingTop: '5%'
   })
   $('select')
     .not('[name="companion_batch[]"]')
@@ -402,3 +403,52 @@ $(document).ready(function() {
     }
   })
 })
+
+function showGuestInfo(id) {
+  let modal = $('#viewGuestInfoModal')
+
+  modal.modal('open')
+
+  $.ajax({
+    url: main_url + '/user/' + id,
+    dataType: 'json'
+  }).done(function(response) {
+    modal.find('input[name=reference_number]').val(response.reference_number)
+    modal.find('input[name=email_address]').val(response.email_address)
+    modal.find('input[name=first_name]').val(response.first_name)
+    modal.find('input[name=middle_initial]').val(response.middle_initial)
+    modal.find('input[name=last_name]').val(response.last_name)
+    modal.find('input[name=nickname]').val(response.nickname)
+    modal.find('input[name=contact_number]').val(response.contact_number)
+    modal.find('input[name=company]').val(response.company)
+    modal.find('input[name=job_title]').val(response.job_title)
+    modal.find('input[name=batch]').val(response.batch)
+
+    M.updateTextFields()
+  })
+
+  $.ajax({
+    url: main_url + '/user/' + id + '/companions',
+    dataType: 'json'
+  }).done(function(response) {
+    response.forEach(function(companion, index) {
+      modal.find('.modal-content').append(
+        "<div class='divider'></div>" +
+          $('.template')
+            .html()
+            .replace(/\{id\}/g, index)
+      )
+      modal.find('input#companion_reference_number_' + index).val(companion.reference_number)
+      modal.find('input#companion_email_address_' + index).val(companion.email_address)
+      modal.find('input#companion_first_name_' + index).val(companion.first_name)
+      modal.find('input#companion_middle_initial_' + index).val(companion.middle_initial)
+      modal.find('input#companion_last_name_' + index).val(companion.last_name)
+      modal.find('input#companion_nickname_' + index).val(companion.nickname)
+      modal.find('input#companion_company_' + index).val(companion.company)
+      modal.find('input#companion_job_title_' + index).val(companion.job_title)
+      modal.find('input#companion_batch_' + index).val(companion.batch)
+
+      M.updateTextFields()
+    })
+  })
+}
