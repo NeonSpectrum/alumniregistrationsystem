@@ -27,8 +27,9 @@
             <td>{{ $id + 1 }}</td>
             <td>
               <a href="#" onclick="showGuestInfo({{ $row['data']->id }})">
-                {{ $row["data"]->first_name . " " . $row["data"]->last_name }} | {{ $row["data"]->email_address }} | {{ $row["data"]->reference_number }}</td>
+                {{ $row["data"]->first_name . " " . $row["data"]->last_name }} | {{ $row["data"]->email_address }} | {{ $row["data"]->reference_number }}
               </a>
+            </td>
             <td>{!! $row["companion"] !!}</td>
             <td>
               @if($row["data"]->reference_file_name)
