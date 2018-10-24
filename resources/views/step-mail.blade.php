@@ -20,7 +20,7 @@
   </tr>
   <tr>
     <td width="50%">Acct Name:</td>
-    <td style="font-weight:bold" width="50%">Rodany Merida and Ma. Teresa Borebor</td>
+    <td style="font-weight:bold" width="50%">UE College of Computer Studies & Systems Alumni Association</td>
   </tr>
   <tr>
     <td width="50%">Acct Type:</td>

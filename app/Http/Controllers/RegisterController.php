@@ -28,9 +28,11 @@ class RegisterController extends Controller {
         'first_name'       => $request->first_name,
         'middle_initial'   => $request->middle_initial,
         'last_name'        => $request->last_name,
+        'nickname'         => $request->nickname,
         'contact_number'   => $request->contact_number,
         'company'          => $request->company,
-        'job_title'        => $request->job_title
+        'job_title'        => $request->job_title,
+        'batch'            => $request->batch
       ]);
 
       if ($request->companion_email_address) {
@@ -43,8 +45,10 @@ class RegisterController extends Controller {
             'first_name'       => $request->companion_first_name[$i],
             'middle_initial'   => $request->companion_middle_initial[$i],
             'last_name'        => $request->companion_last_name[$i],
+            'nickname'         => $request->companion_nickname[$i],
             'company'          => $request->companion_company[$i],
-            'job_title'        => $request->companion_job_titl[$i]
+            'job_title'        => $request->companion_job_title[$i],
+            'batch'            => $request->companion_batch[$i]
           ]);
         }
       }

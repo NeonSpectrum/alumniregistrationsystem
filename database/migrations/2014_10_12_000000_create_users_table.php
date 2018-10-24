@@ -18,14 +18,17 @@ class CreateUsersTable extends Migration {
       $table->string('first_name');
       $table->string('middle_initial');
       $table->string('last_name');
+      $table->string('nickname');
       $table->string('contact_number');
       $table->string('company');
       $table->string('job_title');
+      $table->integer('batch')->nullable();
       $table->string('reference_file_name')->nullable();
-      $table->tinyint('paid')->default(0);
-      $table->tinyint('sent')->default(0);
+      $table->tinyInteger('paid')->default(0);
+      $table->tinyInteger('sent')->default(0);
       $table->string('remarks')->nullable();
-      $table->timestamps();
+      $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+      $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
   }
 

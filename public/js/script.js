@@ -17,7 +17,9 @@ $(document).ready(function() {
   $('.modal').modal({
     dismissible: false
   })
-  $('select').formSelect()
+  $('select')
+    .not('[name="companion_batch[]"]')
+    .formSelect()
   $('.dropdown-trigger').dropdown()
 
   $('form[name=frmLogin]').submit(function(e) {
@@ -82,6 +84,9 @@ $(document).ready(function() {
                 .replace(/\{id\}/g, i)
           )
         }
+        $('.fields-content')
+          .find('select')
+          .formSelect()
         $('#companionsModal').modal('open')
         return
       }
@@ -129,7 +134,7 @@ $(document).ready(function() {
           if (response.error.errorInfo && response.error.errorInfo[1] == 1062) {
             swal('Warning', 'Already Exists!', 'warning')
           } else {
-            swal('Errorx', 'There was an error.', 'error')
+            swal('Error', 'There was an error.', 'error')
             console.log(response.error)
           }
         }

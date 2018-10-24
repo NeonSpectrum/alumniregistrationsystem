@@ -19,8 +19,10 @@ class CreateCompanionTable extends Migration {
       $table->string('first_name');
       $table->string('middle_initial');
       $table->string('last_name');
+      $table->string('nickname');
       $table->string('company')->nullable();
       $table->string('job_title')->nullable();
+      $table->integer('batch')->nullable();
       $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
       $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
