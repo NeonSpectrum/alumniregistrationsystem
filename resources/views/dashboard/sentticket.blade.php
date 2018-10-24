@@ -15,8 +15,8 @@
       <thead>
         <tr>
           <th width="5%">ID</th>
-          <th width="35%">Name</th>
-          <th width="30%">Companion List</th>
+          <th width="30%">Name</th>
+          <th width="20%">Companion List</th>
           <th width="15%">Picture</th>
           <th width="15%">Remarks</th>
           <th width="15%">Action</th>
@@ -35,7 +35,7 @@
                 <span style="color:red;font-style:italic">N/A</span>
               @endif
             </td>
-            <td></td>
+            <td>{{ $row["data"]->remarks }}</td>
             <td style="padding: 5px">
               <button class="waves-effect waves-light btn btnSendTicket" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 RESEND TICKET

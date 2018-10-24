@@ -75,7 +75,8 @@ Route::post('/user/delete', function (Request $request) {
 });
 
 Route::post('/user/paid', function (Request $request) {
-  $code = $request->code;
+  $code    = $request->code;
+  $remarks = $request->remarks ?? null;
 
   if (!$code) {
     abort(404);
@@ -90,7 +91,7 @@ Route::post('/user/paid', function (Request $request) {
       abort(404);
     }
 
-    \DB::table('users')->where('id', $user->id)->update(['paid' => 1]);
+    \DB::table('users')->where('id', $user->id)->update(['paid' => 1, 'remarks' => $remarks]);
 
     Common::createLog('Marked as paid: ' . $reference_number);
 

@@ -19,6 +19,16 @@ body {
   background-size: cover;
 }
 
-.select-dropdown{
+.select-dropdown {
   overflow-y: auto !important;
+}
+
+.swal2-popup .swal2-file:focus,
+.swal2-popup .swal2-input:focus,
+.swal2-popup .swal2-textarea:focus {
+  border: none !important;
+}
+
+div.material-table table tr td {
+  word-wrap: break-word;
 }

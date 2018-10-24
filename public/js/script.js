@@ -281,38 +281,35 @@ $(document).ready(function() {
     swal({
       title: 'Are you sure do you want to mark it as paid?',
       type: 'warning',
+      input: 'text',
       showCancelButton: true,
       confirmButtonColor: '#26a69a',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes'
     }).then(result => {
-      if (result.value) {
-        swal({
-          title: 'Please wait...',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          onOpen: () => {
-            swal.showLoading()
-          }
-        })
+      swal({
+        title: 'Please wait...',
+        onOpen: () => {
+          swal.showLoading()
+        }
+      })
 
-        $.ajax({
-          context: this,
-          type: 'POST',
-          url: main_url + '/user/paid',
-          data: { code },
-          dataType: 'json'
-        }).done(function(response) {
-          swal.close()
-          if (response.success == true) {
-            swal('Marked as Paid!', null, 'success').then(() => {
-              location.reload()
-            })
-          } else {
-            alert(response.error)
-          }
-        })
-      }
+      $.ajax({
+        context: this,
+        type: 'POST',
+        url: main_url + '/user/paid',
+        data: { code, remarks: result.value },
+        dataType: 'json'
+      }).done(function(response) {
+        swal.close()
+        if (response.success == true) {
+          swal('Marked as Paid!', null, 'success').then(() => {
+            location.reload()
+          })
+        } else {
+          alert(response.error)
+        }
+      })
     })
   })
 
