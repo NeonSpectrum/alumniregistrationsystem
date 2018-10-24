@@ -38,7 +38,7 @@ class DashboardController extends Controller {
 
     $total = 0;
 
-    $users = \DB::table('users')->where('paid', 1)->where('sent', '!=', 0)->get();
+    $users = \DB::table('users')->where(['paid' => 1, 'sent' => 0])->get();
 
     $total += $users->count();
 
