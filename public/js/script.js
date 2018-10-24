@@ -7,6 +7,11 @@ $.ajaxSetup({
   }
 })
 
+swal.setDefaults({
+  allowOutsideClick: false,
+  allowEscapeKey: false
+})
+
 $(document).ready(function() {
   $('.materialboxed').materialbox()
   $('.modal').modal({
@@ -98,8 +103,6 @@ $(document).ready(function() {
 
     swal({
       title: 'Please wait...',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
       onOpen: () => {
         swal.showLoading()
       }
@@ -167,8 +170,6 @@ $(document).ready(function() {
 
     swal({
       title: 'Uploading...',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
       onOpen: () => {
         swal.showLoading()
       }
@@ -276,16 +277,43 @@ $(document).ready(function() {
 
   $('.btnViewPicture').click(function() {
     let code = $(this).data('code')
-    let modal = $('#viewPictureModal')
 
-    modal.find('input[name=code]').val(code)
-    modal.find('img').attr(
-      'src',
-      $(this)
-        .find('img')
-        .attr('src')
-    )
-    modal.modal('open')
+    swal({
+      title: 'Are you sure do you want to mark it as paid?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#26a69a',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then(result => {
+      if (result.value) {
+        swal({
+          title: 'Please wait...',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          onOpen: () => {
+            swal.showLoading()
+          }
+        })
+
+        $.ajax({
+          context: this,
+          type: 'POST',
+          url: main_url + '/user/paid',
+          data: { code },
+          dataType: 'json'
+        }).done(function(response) {
+          swal.close()
+          if (response.success == true) {
+            swal('Marked as Paid!', null, 'success').then(() => {
+              location.reload()
+            })
+          } else {
+            alert(response.error)
+          }
+        })
+      }
+    })
   })
 
   $('form[name=frmVerifyPassword]').submit(function(e) {
@@ -304,8 +332,6 @@ $(document).ready(function() {
 
     swal({
       title: type == 'ticket' ? 'Sending...' : 'Deleting...',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
       onOpen: () => {
         swal.showLoading()
       }
@@ -347,46 +373,6 @@ $(document).ready(function() {
           .find('button')
           .prop('disabled', false)
         button.html(html)
-      })
-  })
-
-  $('form[name=frmViewPicture]').submit(function(e) {
-    e.preventDefault()
-
-    $(this)
-      .find('button')
-      .prop('disabled', true)
-
-    swal({
-      title: 'Please wait...',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      onOpen: () => {
-        swal.showLoading()
-      }
-    })
-
-    $.ajax({
-      context: this,
-      type: 'POST',
-      url: main_url + '/user/paid',
-      data: $(this).serialize(),
-      dataType: 'json'
-    })
-      .done(function(response) {
-        swal.close()
-        if (response.success == true) {
-          swal('Marked as Paid!', null, 'success').then(() => {
-            location.reload()
-          })
-        } else {
-          alert(response.error)
-        }
-      })
-      .always(function() {
-        $(this)
-          .find('button')
-          .prop('disabled', true)
       })
   })
 

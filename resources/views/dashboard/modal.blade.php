@@ -15,16 +15,3 @@
     </div>
   </form>
 </div>
-<div id="viewPictureModal" class="modal modal-fixed-footer">
-  <form name="frmViewPicture">
-    <input type="hidden" name="code">
-    <div class="modal-content">
-      <h4>View Deposit Slip</h4>
-      <img src="" alt="" width="100%">
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-      <button type="submit" class=" waves-effect waves-green btn-flat">Mark as Paid</button>
-    </div>
-  </form>
-</div>

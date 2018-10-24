@@ -29,18 +29,21 @@
             <td>{!! $row["companion"] !!}</td>
             <td>
               @if(!$row["data"]->reference_file_name)
-                <a class="btnViewPicture" href="#" data-code="{{ $row['code'] }}">
-                  <img src="{{ asset('public/references/1538581018.png') }}" height="100px" width="100px" style="object-fit:cover">
-                </a>
+                <img class="materialboxed" src="{{ asset('public/references/1538581018.png') }}" height="100px" width="100px" style="object-fit:cover">
               @else
                 <span style="color:red;font-style:italic">N/A</span>
               @endif
             </td>
             <td style="padding: 5px">
-              <button class="waves-effect waves-light btn btnResendPayment" data-code="{{ $row['code'] }}" style="width:100%">
+              <button class="waves-effect waves-light btn btnViewPicture" data-code="{{ $row['code'] }}" style="width:100%">
+                MARK AS PAID
+                <i class="material-icons left">send</i>
+              </button>
+              <button class="waves-effect waves-light btn btnResendPayment" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 RESEND INST.
                 <i class="material-icons left">send</i>
-              </button>              <button class="waves-effect waves-light btn btnDelete red" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
+              </button>
+              <button class="waves-effect waves-light btn btnDelete red" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 DELETE
                 <i class="material-icons left">delete</i>
               </button>
