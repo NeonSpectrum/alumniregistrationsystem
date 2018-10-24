@@ -66,6 +66,8 @@ Route::post('/user/delete', function (Request $request) {
     \DB::table('companions')->where('id', $user->id)->delete();
     \DB::table('users')->where('id', $user->id)->delete();
 
+    Common::createLog('Deleted User: ' . $user->id);
+
     return json_encode(['success' => true]);
   } catch (QueryException $e) {
     return json_encode(['success' => false, 'error' => $e]);
@@ -89,6 +91,8 @@ Route::post('/user/paid', function (Request $request) {
     }
 
     \DB::table('users')->where('id', $user->id)->update(['paid' => 1]);
+
+    Common::createLog('Marked as paid: ' . $reference_number);
 
     return json_encode(['success' => true]);
   } catch (QueryException $e) {
