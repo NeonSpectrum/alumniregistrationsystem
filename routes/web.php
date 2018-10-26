@@ -109,3 +109,5 @@ Route::get('/mailer', 'MailController@display');
 
 Route::get('/upload', 'UploadController@create');
 Route::post('/upload', 'UploadController@store');
+
+Route::get('/upload/success', 'UploadController@showSuccess');

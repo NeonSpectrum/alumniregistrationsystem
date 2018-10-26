@@ -11,6 +11,17 @@ class UploadController extends Controller {
   /**
    * @param Request $request
    */
+  protected function showSuccess(Request $request) {
+    if ($request->session()->has('upload')) {
+      return view('upload-success');
+    } else {
+      return redirect()->route('register');
+    }
+  }
+
+  /**
+   * @param Request $request
+   */
   protected function create(Request $request) {
     $code = $request->query('code', null);
 
@@ -50,6 +61,8 @@ class UploadController extends Controller {
 
       \Mail::to('aseret_f@yahoo.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '/' . $filename, $mime));
       Common::createLog("Deposit slip of {$reference_number} has been sent to aseret_f@yahoo.com");
+
+      $request->session()->flash('upload', true);
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     } catch (\Exception $e) {

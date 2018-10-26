@@ -191,13 +191,7 @@ $(document).ready(function() {
       success: function(response) {
         swal.close()
         if (response.success == true) {
-          swal({
-            title: 'Success',
-            type: 'success',
-            text: 'Uploaded! We will now verify your bank reference.'
-          }).then(function() {
-            location.href = './'
-          })
+          location.href = main_url + '/upload/success'
         } else {
           swal('Error!', response.error, 'error')
         }
