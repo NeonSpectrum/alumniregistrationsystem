@@ -29,7 +29,7 @@
             <td>{{ $id + 1 }}</td>
             <td>
               <a href="#" onclick="showGuestInfo({{ $row['data']->id }})">
-                {{ $row["data"]->first_name . " " . $row["data"]->last_name }}
+                {{ $row["data"]->first_name . " " . $row["data"]->last_name }}{{ $row["data"]->nickname ? " ({$row["data"]->nickname})" : "" }}
               </a>
             </td>
             <td>{{ $row["data"]->email_address }}</td>
