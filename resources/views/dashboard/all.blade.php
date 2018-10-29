@@ -19,7 +19,7 @@
           <th>Reference Number</th>
           <th>Companions</th>
           <th>Contact Number</th>
-          <th>Batch</th>
+          <th width="8%">Batch</th>
           <th>Referrer</th>
           <th>Date Registered</th>
         </tr>
