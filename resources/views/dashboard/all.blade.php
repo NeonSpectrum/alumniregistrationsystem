@@ -18,6 +18,7 @@
           <th>Email Address</th>
           <th>Reference Number</th>
           <th>Companions</th>
+          <th>Contact Number</th>
           <th>Batch</th>
           <th>Referrer</th>
           <th>Date Registered</th>
@@ -35,6 +36,7 @@
             <td>{{ $row["data"]->email_address }}</td>
             <td>{{ $row["data"]->reference_number }}</td>
             <td>{!! $row["companion"] !!}</td>
+            <td>{{ $row["data"]->contact_number }}</td>
             <td>{{ $row["data"]->batch }}</td>
             <td>{{ $row["data"]->referrer }}</td>
             <td>{{ date("F d, Y", strtotime($row["data"]->created_at)) }}</td>
