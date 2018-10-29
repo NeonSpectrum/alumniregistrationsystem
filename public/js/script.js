@@ -169,6 +169,7 @@ $(document).ready(function() {
         .val()
     )
     form_data.append('file', $('input[name=image_reference]').prop('files')[0])
+    form_data.append('data', $(this).serialize())
 
     $(this)
       .find('button[type=submit]')

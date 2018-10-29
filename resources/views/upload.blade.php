@@ -8,7 +8,29 @@
           <div class="card-content">
             <span class="card-title black-text">Upload</span>
             <div class="row">
-              <div class="file-field input-field">
+              @if(!$user->nickname)
+                <div class="input-field col m8">
+                  <input id="nickname" name="nickname" type="text" class="validate" required>
+                  <label for="nickname">Nickname</label>
+                </div>
+              @endif
+              @if($user->batch == 0)
+                <div class="input-field col m4">
+                  <select id="batch" name="batch">
+                    @for($i = date("Y"); $i >= 1992; $i--)
+                      <option>{{ $i }}</option>
+                    @endfor
+                  </select>
+                  <label for="batch">Batch (Year)</label>
+                </div>
+              @endif
+              @if(!$user->referrer)
+                <div class="input-field col m12">
+                  <input id="referrer" name="referrer" type="text" class="validate" required>
+                  <label for="referrer">Referrer</label>
+                </div>
+              @endif
+              <div class="file-field input-field col m12">
                 <div class="btn">
                   <span>Browse</span>
                   <input type="file" name="image_reference">

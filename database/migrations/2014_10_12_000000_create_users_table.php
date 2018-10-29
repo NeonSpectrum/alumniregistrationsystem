@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration {
       $table->string('contact_number');
       $table->string('company');
       $table->string('job_title');
-      $table->integer('batch')->nullable();
+      $table->integer('batch');
+      $table->string('referrer');
       $table->string('reference_file_name')->nullable();
       $table->tinyInteger('paid')->default(0);
       $table->tinyInteger('sent')->default(0);

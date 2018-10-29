@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/registered', 'DashboardController@showRegistered')->name('dashboard.registered');
     Route::get('/paid', 'DashboardController@showPaid')->name('dashboard.paid');
     Route::get('/sentticket', 'DashboardController@showSentTicket')->name('dashboard.sentticket');
+    Route::get('/all', 'DashboardController@showAll')->name('dashboard.all');
   });
   Route::get('logs', 'LogController@show')->name('logs');
 

@@ -65,6 +65,10 @@
                 <input id="job_title" name="job_title" type="text" class="validate" required>
                 <label for="job_title">Job Title</label>
               </div>
+              <div class="input-field col m12">
+                <input id="referrer" name="referrer" type="text" class="validate" required>
+                <label for="referrer">Referrer</label>
+              </div>
             </div>
           </div>
           <div class="card-action" style="overflow:hidden">

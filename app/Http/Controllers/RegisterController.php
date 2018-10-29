@@ -32,7 +32,8 @@ class RegisterController extends Controller {
         'contact_number'   => $request->contact_number,
         'company'          => $request->company,
         'job_title'        => $request->job_title,
-        'batch'            => $request->batch
+        'batch'            => $request->batch,
+        'referrer'         => $request->referrer
       ]);
 
       if ($request->companion_email_address) {

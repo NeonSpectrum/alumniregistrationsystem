@@ -34,7 +34,7 @@ class UploadController extends Controller {
     $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
     if ($user) {
-      return view('upload', ['code' => $code]);
+      return view('upload', ['user' => $user, 'code' => $code]);
     }
 
     abort(404);
@@ -52,10 +52,24 @@ class UploadController extends Controller {
 
     $reference_number = Common::decrypt($request->code);
 
+    $arr = [
+      'reference_file_name' => $filename
+    ];
+
+    parse_str($request->data, $data);
+
+    if ($data['nickname']) {
+      $arr['nickname'] = $data['nickname'];
+    }
+    if ($data['batch']) {
+      $arr['batch'] = $data['batch'];
+    }
+    if ($data['referrer']) {
+      $arr['referrer'] = $data['referrer'];
+    }
+
     try {
-      \DB::table('users')->where('reference_number', $reference_number)->update([
-        'reference_file_name' => $filename
-      ]);
+      \DB::table('users')->where('reference_number', $reference_number)->update($arr);
 
       $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
@@ -63,12 +77,12 @@ class UploadController extends Controller {
       Common::createLog("Deposit slip of {$reference_number} has been sent to aseret_f@yahoo.com");
 
       $request->session()->flash('upload', true);
+
+      return json_encode(['success' => true]);
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     } catch (\Exception $e) {
       return json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
-
-    return json_encode(['success' => true]);
   }
 }
