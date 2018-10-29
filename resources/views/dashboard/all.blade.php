@@ -14,9 +14,9 @@
       <thead>
         <tr>
           <th width="5%">ID</th>
-          <th>Reference Number</th>
-          <th>Email Address</th>
           <th>Name</th>
+          <th>Email Address</th>
+          <th>Reference Number</th>
           <th>Companions</th>
           <th>Batch</th>
           <th>Referrer</th>
@@ -27,13 +27,13 @@
         @foreach($data as $id => $row)
           <tr>
             <td>{{ $id + 1 }}</td>
-            <td>{{ $row["data"]->reference_number }}</td>
-            <td>{{ $row["data"]->email_address }}</td>
             <td>
               <a href="#" onclick="showGuestInfo({{ $row['data']->id }})">
                 {{ $row["data"]->first_name . " " . $row["data"]->last_name }}
               </a>
             </td>
+            <td>{{ $row["data"]->email_address }}</td>
+            <td>{{ $row["data"]->reference_number }}</td>
             <td>{!! $row["companion"] !!}</td>
             <td>{{ $row["data"]->batch }}</td>
             <td>{{ $row["data"]->referrer }}</td>
