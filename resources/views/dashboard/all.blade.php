@@ -5,7 +5,7 @@
 <div class="col s12" style="margin: 30px 50px 0 50px">
   <div class="card material-table">
     <div class="table-header">
-      <span class="table-title">{{ Common::encrypt("ECWTH4RRQK") }}List of All Guests (Total: {{ $total }})</span>
+      <span class="table-title">List of All Guests (Total: {{ $total }})</span>
       <div class="actions">
         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
       </div>
