@@ -25,7 +25,7 @@ class ReportController extends Controller {
         'names' => join('<br>', $names)
       ];
 
-      $user->date_sent = \DB::table('logs')->whereRaw('action LIKE "%Ticket%' . $user->email_address . '%"')->first()->created_at;
+      $user->date_sent = \DB::table('logs')->whereRaw('action LIKE "%Ticket%' . $user->email_address . '%"')->latest()->first()->created_at;
     }
 
     $pdf = \PDF::loadView('pdf.report', ['data' => $users]);
