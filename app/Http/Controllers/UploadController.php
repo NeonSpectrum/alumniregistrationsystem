@@ -58,13 +58,13 @@ class UploadController extends Controller {
 
     parse_str($request->data, $data);
 
-    if ($data['nickname']) {
+    if (isset($data['nickname'])) {
       $arr['nickname'] = $data['nickname'];
     }
-    if ($data['batch']) {
+    if (isset($data['batch'])) {
       $arr['batch'] = $data['batch'];
     }
-    if ($data['referrer']) {
+    if (isset($data['referrer'])) {
       $arr['referrer'] = $data['referrer'];
     }
 
