@@ -94,6 +94,8 @@ Route::middleware('auth')->group(function () {
     return json_encode(\DB::table('companions')->where('id', $request->id)->get());
   });
 
+  Route::get('/report', 'ReportController@show')->name('report');
+
 });
 
 Route::get('/login', 'LoginController@show')->name('login');

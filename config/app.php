@@ -161,7 +161,8 @@ return [
     App\Providers\RouteServiceProvider::class,
 
     Intervention\Image\ImageServiceProvider::class,
-    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+    Barryvdh\DomPDF\ServiceProvider::class
 
   ],
 
@@ -213,7 +214,8 @@ return [
     'View'         => Illuminate\Support\Facades\View::class,
     'Image'        => Intervention\Image\Facades\Image::class,
     'QrCode'       => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-    'Common'       => App\Common::class
+    'Common'       => App\Common::class,
+    'PDF'          => Barryvdh\DomPDF\Facade::class
   ]
 
 ];
