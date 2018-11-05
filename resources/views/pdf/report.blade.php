@@ -18,6 +18,10 @@
     </tr>
   </thead>
   <tbody>
+    <center>
+      <h1>CCSS 20th Alumni Homecoming Ticket Sales</h1>
+      <small>As of {{ date("F d, Y h:i:s A") }}</small>
+    </center>
     @php ($id = 1)
     @php ($total = 0)
     @foreach($data as $row)
