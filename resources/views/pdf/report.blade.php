@@ -4,6 +4,10 @@
   }
   th, td {
     padding: 10px;
+    border: 1px solid black;
+  }
+  tfoot>tr>th{
+    border:none;
   }
 </style>
 <center>
@@ -11,7 +15,7 @@
   <small>As of {{ date("F d, Y h:i:s A") }}</small>
 </center>
 <br>
-<table width="100%" cellspacing="0" border="1">
+<table width="100%" cellspacing="0">
   <thead>
     <tr>
       <th>Description</th>
@@ -49,3 +53,4 @@
     </tr>
   </tfoot>
 </table>
+<div style="position:absolute;bottom:0;width:100%;text-align:center">CCSS Research and Development Unit</div>
