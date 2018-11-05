@@ -7,9 +7,10 @@
   }
 </style>
 <center>
-  <h1>CCSS 30th Alumni Homecoming Ticket Sales</h1>
+  <h1 style="margin-bottom:5px">CCSS 30th Alumni Homecoming Ticket Sales</h1>
   <small>As of {{ date("F d, Y h:i:s A") }}</small>
 </center>
+<br>
 <table width="100%" cellspacing="0" border="1">
   <thead>
     <tr>
