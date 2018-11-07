@@ -56,16 +56,18 @@ class UploadController extends Controller {
       'reference_file_name' => $filename
     ];
 
-    parse_str($request->data, $data);
+    if ($request->data) {
+      parse_str($request->data, $data);
 
-    if (isset($data['nickname'])) {
-      $arr['nickname'] = $data['nickname'];
-    }
-    if (isset($data['batch'])) {
-      $arr['batch'] = $data['batch'];
-    }
-    if (isset($data['referrer'])) {
-      $arr['referrer'] = $data['referrer'];
+      if (isset($data['nickname'])) {
+        $arr['nickname'] = $data['nickname'];
+      }
+      if (isset($data['batch'])) {
+        $arr['batch'] = $data['batch'];
+      }
+      if (isset($data['referrer'])) {
+        $arr['referrer'] = $data['referrer'];
+      }
     }
 
     try {

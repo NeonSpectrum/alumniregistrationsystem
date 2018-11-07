@@ -276,7 +276,7 @@ $(document).ready(function() {
     })
   })
 
-  $('.btnViewPicture').click(function() {
+  $('.btnMarkAsPaid').click(function() {
     let code = $(this).data('code')
 
     swal({
@@ -313,6 +313,51 @@ $(document).ready(function() {
           alert(response.error)
         }
       })
+    })
+  })
+
+  $('.btnUploadPicture').click(function() {
+    window.selectedCode = $(this).data('code')
+    $('input[name=image_upload]').click()
+  })
+
+  $('input[name=image_upload]').change(function() {
+    if (!confirm('Uploading will replace the old one. Continue?')) return
+
+    let form_data = new FormData()
+
+    form_data.append('file', $(this).prop('files')[0])
+    form_data.append('code', selectedCode)
+
+    $(this).prop('disabled', true)
+
+    swal({
+      title: 'Uploading...',
+      onOpen: () => {
+        swal.showLoading()
+      }
+    })
+
+    $.ajax({
+      context: this,
+      type: 'POST',
+      url: main_url + '/upload',
+      data: form_data,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+      success: function(response) {
+        swal.close()
+        if (response.success == true) {
+          swal('Uploaded', null, 'success').then(() => {
+            location.reload()
+          })
+        } else {
+          swal('Error!', response.error, 'error')
+        }
+      }
+    }).always(function() {
+      $(this).prop('disabled', false)
     })
   })
 

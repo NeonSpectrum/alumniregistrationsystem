@@ -39,9 +39,13 @@
               @endif
             </td>
             <td style="padding: 5px">
-              <button class="waves-effect waves-light btn btnViewPicture" data-code="{{ $row['code'] }}" style="width:100%">
+              <button class="waves-effect waves-light btn btnUploadPicture" data-code="{{ $row['code'] }}" style="width:100%">
+                UPLOAD
+                <i class="material-icons left">file_upload</i>
+              </button>
+              <button class="waves-effect waves-light btn btnMarkAsPaid" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 MARK AS PAID
-                <i class="material-icons left">send</i>
+                <i class="material-icons left">check</i>
               </button>
               <button class="waves-effect waves-light btn btnResendPayment" data-code="{{ $row['code'] }}" style="width:100%;margin-top:5px">
                 RESEND INST.
@@ -56,6 +60,7 @@
         @endforeach
       </tbody>
     </table>
+    <input type="file" name="image_upload" style="display:none">
   </div>
 </div>
 @include('dashboard.modal')
