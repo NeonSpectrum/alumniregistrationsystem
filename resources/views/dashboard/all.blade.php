@@ -7,6 +7,7 @@
     <div class="table-header">
       <span class="table-title">List of All Guests (Total: {{ $total }})</span>
       <div class="actions">
+        <a href="{{ url('export') }}" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">file_download</i></a>
         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
       </div>
     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataExport;
+
 class DashboardController extends Controller {
   protected function showRegistered() {
 
@@ -129,5 +131,9 @@ class DashboardController extends Controller {
     }
 
     return view('dashboard.all', ['data' => $data, 'total' => $total]);
+  }
+
+  protected function export() {
+    return \Excel::download(new DataExport, date('F_d_Y_h_i_s_A') . ' Alumni Registration Report.xlsx');
   }
 }
