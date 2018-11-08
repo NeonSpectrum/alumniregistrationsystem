@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         @foreach($data as $id => $row)
-          <tr>
+          <tr class="{{ $row['data']->status ?? ''}}">
             <td>{{ $id + 1 }}</td>
             <td>
               <a href="#" onclick="showGuestInfo({{ $row['data']->id }})">

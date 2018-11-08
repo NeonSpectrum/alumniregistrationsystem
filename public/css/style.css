@@ -41,3 +41,11 @@ div.material-table table tr td {
 .modal.modal-fixed-footer {
   height: 90% !important;
 }
+
+tr.paid td {
+  color: red !important;
+}
+
+tr.sent td {
+  color: blue !important;
+}

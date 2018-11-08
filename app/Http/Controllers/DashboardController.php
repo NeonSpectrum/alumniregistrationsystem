@@ -114,6 +114,12 @@ class DashboardController extends Controller {
     $data = [];
 
     foreach ($users as $row) {
+      if ($row->sent == 1) {
+        $row->status = 'sent';
+      } else if ($row->paid == 1) {
+        $row->status = 'paid';
+      }
+
       $companions = \DB::table('companions')->where('id', $row->id)->get();
 
       $total += $companions->count();
