@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common;
 use App\Exports\DataExport;
 
 class DashboardController extends Controller {
@@ -134,6 +135,7 @@ class DashboardController extends Controller {
   }
 
   protected function export() {
+    Common::createLog('Export Data to Excel');
     return \Excel::download(new DataExport, date('F_d_Y_h_i_s_A') . ' Alumni Registration Report.xlsx');
   }
 }
