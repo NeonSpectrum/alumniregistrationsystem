@@ -17,32 +17,32 @@
   <tbody>
     @foreach($data as $id => $row)
       <tr>
-        <td>{{ $id + 1 }}</td>
-        <td>{{ $row["data"]->first_name . " " . $row["data"]->middle_initial . " " . $row["data"]->last_name }}</td>
-        <td>{{ $row["data"]->nickname }} </td>
-        <td>{{ $row["data"]->email_address }}</td>
-        <td>{{ $row["data"]->reference_number }}</td>
-        <td>{{ $row["data"]->contact_number }}</td>
-        <td>{{ $row["data"]->company }}</td>
-        <td>{{ $row["data"]->job_title }}</td>
-        <td>{{ $row["data"]->batch }}</td>
-        <td>{{ $row["data"]->referrer }}</td>
-        <td>{{ date("F d, Y", strtotime($row["data"]->created_at)) }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $id + 1 }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->first_name . " " . $row["data"]->middle_initial . " " . $row["data"]->last_name }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->nickname }} </td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->email_address }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->reference_number }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->contact_number }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->company }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->job_title }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->batch }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ $row["data"]->referrer }}</td>
+        <td style="{{ $row['data']->status ?? "" }}">{{ date("F d, Y", strtotime($row["data"]->created_at)) }}</td>
       </tr>
       @if(count($row["companions"]) > 0)
         @foreach($row["companions"] as $companion)
           <tr>
-            <td></td>
-            <td>{{ $companion->first_name . " " . $companion->middle_initial . " " . $companion->last_name }}</td>
-            <td>{{ $companion->nickname }}</td>
-            <td>{{ $companion->email_address }}</td>
-            <td>{{ $companion->reference_number }}</td>
-            <td></td>
-            <td>{{ $companion->company }}</td>
-            <td>{{ $companion->job_title }}</td>
-            <td>{{ $companion->batch }}</td>
-            <td></td>
-            <td></td>
+            <td style="{{ $row['data']->status ?? "" }}"></td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->first_name . " " . $companion->middle_initial . " " . $companion->last_name }}</td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->nickname }}</td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->email_address }}</td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->reference_number }}</td>
+            <td style="{{ $row['data']->status ?? "" }}"></td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->company }}</td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->job_title }}</td>
+            <td style="{{ $row['data']->status ?? "" }}">{{ $companion->batch }}</td>
+            <td style="{{ $row['data']->status ?? "" }}"></td>
+            <td style="{{ $row['data']->status ?? "" }}"></td>
           </tr>
         @endforeach
       @endif
