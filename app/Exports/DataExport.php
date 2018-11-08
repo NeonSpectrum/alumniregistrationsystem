@@ -17,9 +17,9 @@ class DataExport implements FromView, ShouldAutoSize {
 
     foreach ($users as $row) {
       if ($row->sent == 1) {
-        $row->status = 'color: blue';
+        $row->status = 'color: #00f';
       } else if ($row->paid == 1) {
-        $row->status = 'color: red';
+        $row->status = 'color: #f00';
       }
 
       $companions = \DB::table('companions')->where('id', $row->id)->get();
