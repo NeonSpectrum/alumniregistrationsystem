@@ -10,7 +10,7 @@
         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
       </div>
     </div>
-    <table class="datatable">
+    <table class="datatable" data-sort="desc">
       <thead>
         <tr>
           <th>ID</th>

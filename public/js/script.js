@@ -421,7 +421,7 @@ $(document).ready(function() {
       })
   })
 
-  $('.datatable').DataTable({
+  let dTable = $('.datatable').DataTable({
     oLanguage: {
       sStripClasses: '',
       sSearch: '',
@@ -440,7 +440,8 @@ $(document).ready(function() {
     bAutoWidth: false,
     search: {
       smart: false
-    }
+    },
+    order: [[0, $('.datatable').data('sort') == 'desc' ? 'desc' : 'asc']]
   })
 })
 
