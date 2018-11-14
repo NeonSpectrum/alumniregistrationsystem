@@ -48,6 +48,10 @@ class UploadController extends Controller {
 
     $mime = $request->file->getMimeType();
 
+    if (substr($mime, 0, 5) != 'image') {
+      return json_encode(['success' => false, 'error' => 'This is not an image.']);
+    }
+
     $request->file->move(public_path('references'), $filename);
 
     $reference_number = Common::decrypt($request->code);

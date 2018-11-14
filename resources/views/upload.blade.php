@@ -36,7 +36,7 @@
                   <input type="file" name="image_reference">
                 </div>
                 <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text" placeholder="Upload file">
+                  <input class="file-path validate" type="text" placeholder="Upload file" accept="image/*">
                 </div>
               </div>
             </div>
