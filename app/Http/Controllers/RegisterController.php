@@ -55,6 +55,7 @@ class RegisterController extends Controller {
       }
 
       Common::sendSteps($reference_number);
+      Common::createLog("Registered user with ID: {$id} (" . Common::getRealIpAddr() . ')', $request->email_address);
     } catch (QueryException $e) {
       return json_encode(['success' => false, 'error' => $e]);
     }
