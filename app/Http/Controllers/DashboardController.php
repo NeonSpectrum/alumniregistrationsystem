@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Common;
 use App\Exports\DataExport;
+use App\Exports\SentTicketExport;
 
 class DashboardController extends Controller {
   protected function showRegistered() {
@@ -140,8 +141,13 @@ class DashboardController extends Controller {
     return view('dashboard.all', ['data' => $data, 'total' => $total]);
   }
 
-  protected function export() {
+  protected function exportall() {
     Common::createLog('Export Data to Excel');
     return \Excel::download(new DataExport, date('F_d_Y_h_i_s_A') . ' Alumni Registration Report.xlsx');
+  }
+
+  protected function exportsentticket() {
+    Common::createLog('Export Sent Ticket to Excel');
+    return \Excel::download(new SentTicketExport, date('F_d_Y_h_i_s_A') . ' Alumni Registration Report.xlsx');
   }
 }

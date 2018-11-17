@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
   });
 
   Route::get('logs', 'LogController@show')->name('logs');
-  Route::get('export', 'DashboardController@export')->name('export');
+  Route::get('export/all', 'DashboardController@exportall')->name('export.all');
+  Route::get('export/sentticket', 'DashboardController@exportsentticket')->name('export.sentticket');
 
   Route::post('/user/delete', function (Request $request) {
     $code     = $request->code;
