@@ -44,7 +44,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <th></th>
+      <th style="text-align:right">Total:</th>
       <th style="text-align:right">{{ number_format($total, 2, ".", ",") }}</th>
       <th></th>
       <th></th>
