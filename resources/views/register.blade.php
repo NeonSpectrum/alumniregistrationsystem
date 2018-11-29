@@ -7,7 +7,7 @@
         <form name="frmRegister">
           <div class="center-align" style="background:lightgreen;overflow:auto">
             <div class="col s3">
-              <img src="{{ asset('public/img/ccss_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
+              <img src="{{ asset('img/ccss_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
             </div>
             <div class="col s6" style="margin-top:15px">
               <span class="white-text card-title" style="font-weight:bold">
@@ -16,7 +16,7 @@
               </span>
             </div>
             <div class="col s3">
-              <img src="{{ asset('public/img/ue_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
+              <img src="{{ asset('img/ue_thumb.png') }}" alt="" height="100px" style="margin-top:5px">
             </div>
           </div>
           <div class="card-content">

@@ -33,7 +33,7 @@
             <td>{!! $row["companion"] !!}</td>
             <td>
               @if($row["data"]->reference_file_name)
-                <img class="materialboxed" src="{{ asset('public/references/' . $row['data']->reference_file_name) }}" height="100px" style="object-fit:cover">
+                <img class="materialboxed" src="{{ asset('references/' . $row['data']->reference_file_name) }}" height="100px" style="object-fit:cover">
               @else
                 <span style="color:red;font-style:italic">N/A</span>
               @endif
