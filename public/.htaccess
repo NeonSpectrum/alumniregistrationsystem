@@ -17,3 +17,6 @@
     RewriteRule .? %{ENV:BASE}/index.php [L]
 
 </IfModule>
+
+php_value post_max_size=10M
+php_value upload_max_filesize=10M
