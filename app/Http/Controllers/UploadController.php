@@ -52,6 +52,7 @@ class UploadController extends Controller {
       return json_encode(['success' => false, 'error' => 'This is not an image.']);
     }
 
+    $request->file->move(public_path('references'), $filename);
     $reference_number = Common::decrypt($request->code);
 
     $arr = [
