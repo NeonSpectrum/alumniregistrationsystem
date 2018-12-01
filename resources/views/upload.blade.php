@@ -33,10 +33,10 @@
               <div class="file-field input-field col m12">
                 <div class="btn">
                   <span>Browse</span>
-                  <input type="file" name="image_reference">
+                  <input type="file" name="image_reference" accept="image/*">
                 </div>
                 <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text" placeholder="Upload file" accept="image/*">
+                  <input class="file-path validate" type="text" placeholder="Upload file">
                 </div>
               </div>
             </div>
