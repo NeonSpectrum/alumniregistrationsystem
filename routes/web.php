@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/all', 'DashboardController@showAll')->name('dashboard.all');
   });
 
+  Route::get('scanner', function () {
+    return view('scanner');
+  });
+  Route::post('scanner', 'DashboardController@scanner');
+  Route::get('loggedlist', 'DashboardController@loggedList');
   Route::get('logs', 'LogController@show')->name('logs');
   Route::get('export/all', 'DashboardController@exportall')->name('export.all');
   Route::get('export/sentticket', 'DashboardController@exportsentticket')->name('export.sentticket');

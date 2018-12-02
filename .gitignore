@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/references/*
+/public/loggedusers/*
 /storage/*.key
 /vendor
 /.idea

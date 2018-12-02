@@ -6,5 +6,6 @@
   <script src="{{ asset('js/datatable-custom.js') }}"></script>
   <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
   <script src="{{ asset('js/script.js') }}?v={{ filemtime(public_path('js/script.js')) }}"></script>
+  @yield("extra-scripts")
 </body>
 </html>

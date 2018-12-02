@@ -26,7 +26,7 @@
                 <label for="first_name">First Name</label>
               </div>
               <div class="input-field col m2">
-                <input id="middle_initial" name="middle_initial" type="text" class="validate" required>
+                <input id="middle_initial" name="middle_initial" type="text" class="validate">
                 <label for="middle_initial">Middle Initial</label>
               </div>
               <div class="input-field col m5">

@@ -28,6 +28,19 @@ class Common {
   }
 
   /**
+   * @param $reference_number
+   */
+  public static function getRowByReferenceNumber($reference_number) {
+    $user = \DB::table('users')->where('reference_number', $reference_number);
+
+    if (count($user->get()) == 0) {
+      $user = \DB::table('companions')->where('reference_number', $reference_number);
+    }
+
+    return $user;
+  }
+
+  /**
    * @param $code
    * @return mixed
    */
