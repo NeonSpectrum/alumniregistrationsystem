@@ -31,77 +31,7 @@
 <script src="{{ asset('js/materialize.min.js') }}"></script>
 <script src="{{ asset('js/moment.min.js') }}"></script>
 <script src="{{ asset('js/instascan.min.js') }}"></script>
-<script>
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  })
-  let scanner = new Instascan.Scanner({
-    video: document.getElementById('preview'),
-    refractoryPeriod: 3000,
-    captureImage: true
-  });
-  scanner.addListener('scan', function (content, image) {
-    $("h1.data").text("Loading...")
-    let form_data = new FormData()
-    form_data.append("code", content)
-    form_data.append("image", image);
-    $.ajax({
-      type: "POST",
-      data: form_data,
-      contentType: false,
-      processData: false
-    }).done(function(response){
-      if(response.success){
-        $("h1.data").text("Reference Number: " + content)
-      } else {
-        $("h1.data").text("Already Logged In.")
-      }
-    }).always(function(){
-      setTimeout(function(){
-        $("h1.data").text(null)
-      }, 3000)
-      fetchLogged()
-    })
-  });
-  Instascan.Camera.getCameras().then(function (cameras) {
-    if (cameras.length > 0) {
-      scanner.start(cameras[0]);
-    } else {
-      console.error('No cameras found.');
-    }
-  }).catch(function (e) {
-    console.error(e);
-  });
-
-  function fetchLogged(){
-    $.get("loggedlist", null, function(response){
-      $("ul.collection").html(null)
-      response.forEach(function(item){
-        $("ul.collection").append(`
-          <li class="collection-item" style="overflow:hidden">
-            <a href="loggedusers/${item.reference_number}.webp" target="_blank">
-              ${item.first_name} ${item.last_name} (${item.reference_number}) logged in
-            </a>
-            <div style="float:right;font-size:10px">
-              ${moment(item.logged_at).format("MMM D, YYYY h:mm:ss A")}
-            </div>
-          </li>
-        `)
-      })
-      $(".collection-item a").click(function(e){
-        e.preventDefault()
-        $(".materialboxed").attr("src", $(this).attr("href")).materialbox();
-        setTimeout(function(){
-          let image = M.Materialbox.getInstance($(".materialboxed"))
-          image.open()
-        }, 100)
-      })
-    },"json")
-  }
-
-  fetchLogged()
-</script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('js/scanner.js') }}"></script>
 </body>
 </html>

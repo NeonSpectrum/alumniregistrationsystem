@@ -159,19 +159,35 @@ class DashboardController extends Controller {
     $code  = $request->code;
     $image = $request->image;
 
-    $user = Common::getRowByReferenceNumber($code);
+    if ($request->type == 'qrcode') {
+      $user = Common::getRowByReferenceNumber($code);
 
-    if ($user->first()->logged_at) {
-      return response()->json(['success' => false]);
-    } else {
+      if ($user->first()->logged_at) {
+        return response()->json(['success' => false]);
+      } else {
+        $image = str_replace('data:image/webp;base64,', '', $image);
 
-      $image = str_replace('data:image/webp;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+
+        $image = base64_decode($image);
+
+        $file = public_path('loggedusers') . '/' . $code . '-qrcode.webp';
+
+        file_put_contents($file, $image);
+
+        $user->update([
+          'logged_at' => date('Y-m-d H:i:s')
+        ]);
+        return response()->json(['success' => true, 'name' => $user->first()->first_name . ' ' . $user->first()->last_name]);
+      }
+    } else if ($request->type == 'picture') {
+      $image = str_replace('data:image/png;base64,', '', $image);
 
       $image = str_replace(' ', '+', $image);
 
       $image = base64_decode($image);
 
-      $file = public_path('loggedusers') . '/' . $code . '.webp';
+      $file = public_path('loggedusers') . '/' . $code . '-picture.png';
 
       file_put_contents($file, $image);
 

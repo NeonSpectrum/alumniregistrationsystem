@@ -21,7 +21,8 @@ class Common {
     $data->user       = $user;
     $data->companions = $companions;
     $data->code       = Common::encrypt($user->reference_number);
-    $data->date       = date('l, F d, Y', strtotime('+5 weekday'));
+    $data->date       = 'Wednesday, December 12, 2018';
+    // $data->date       = date('l, F d, Y', strtotime('+1 weekday'));
 
     \Mail::to($user->email_address)->send(new StepMail($data));
     \App\Common::createLog('Sent Steps to: ' . $user->email_address);

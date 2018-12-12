@@ -78,7 +78,7 @@ class UploadController extends Controller {
 
       $user = \DB::table('users')->where('reference_number', $reference_number)->first();
 
-      \Mail::to('aseret_f@yahoo.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '/' . $filename, $mime));
+      // \Mail::to('aseret_f@yahoo.com')->send(new SendPictureMail($user->first_name . ' ' . $user->last_name, public_path('references') . '/' . $filename, $mime));
       Common::createLog("Deposit slip of {$reference_number} has been sent to aseret_f@yahoo.com");
 
       $request->session()->flash('upload', true);

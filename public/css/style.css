@@ -59,3 +59,8 @@ tr.paid td {
 tr.sent td {
   color: blue !important;
 }
+
+.swal2-modal.swal2-modal-lg {
+  width: 70%;
+  height: 100%;
+}
