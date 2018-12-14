@@ -202,21 +202,26 @@ class DashboardController extends Controller {
 
     $data = [];
 
-    foreach ($logged as $row) {
-      $data[] = \DB::select("SELECT * FROM (SELECT nickname, reference_number FROM `users` UNION SELECT nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+    foreach ($logged as $i => $row) {
+      $data[$i]            = \DB::select("SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+      $data[$i]->logged_at = $row->updated_at->format('F d, Y h:i:s A');
     }
 
     return response()->json($data);
   }
 
   protected function raffle() {
-    $logged = Logged::all();
+    $logged = Logged::whereTime([
+      'created_at', '<', '19:00:00'
+    ])->get();
 
     $data = [];
 
     foreach ($logged as $row) {
-      $data[] = \DB::select("SELECT * FROM (SELECT nickname, reference_number FROM `users` UNION SELECT nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+      $data[] = \DB::select("SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
     }
+
+    // $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U');
 
     return view('raffle', ['data' => $data]);
   }

@@ -19,44 +19,40 @@ scanner.addListener('scan', function(content, image) {
       type: 'qrcode',
       ...currentData
     }
-  })
-    .done(function(response) {
-      if (response.success) {
-        currentData.name = response.name
+  }).done(function(response) {
+    if (response.success) {
+      currentData.name = response.name
+      swal({
+        title: 'Valid QR Code',
+        text: 'Retrieving data...',
+        timer: 3000,
+        onOpen: () => {
+          swal.showLoading()
+        }
+      })
+      setTimeout(function() {
         swal({
-          title: 'Valid QR Code',
-          text: 'Retrieving data...',
+          title: 'Welcome, ' + response.name,
+          text: 'Start Taking Photos.',
           timer: 3000,
           onOpen: () => {
             swal.showLoading()
           }
         })
         setTimeout(function() {
-          swal({
-            title: 'Welcome, ' + response.name,
-            text: 'Start Taking Photos.',
-            timer: 3000,
-            onOpen: () => {
-              swal.showLoading()
-            }
-          })
-          setTimeout(function() {
-            preparePhoto()
-            scanner.stop()
-          }, 3000)
+          preparePhoto()
+          scanner.stop()
         }, 3000)
-      } else {
-        swal({
-          title: 'Already Logged In',
-          html: '<span style="color:red">See registration committee</span>',
-          timer: 3000,
-          showConfirmButton: false
-        })
-      }
-    })
-    .always(function() {
-      fetchLogged()
-    })
+      }, 3000)
+    } else {
+      swal({
+        title: 'Already Logged In',
+        html: '<span style="color:red">See registration committee</span>',
+        timer: 3000,
+        showConfirmButton: false
+      })
+    }
+  })
 })
 Instascan.Camera.getCameras()
   .then(function(cameras) {
@@ -123,7 +119,6 @@ function showImage(url) {
         data: { type: 'picture', code: currentData.code, image: url }
       }).always(function() {
         scanner.start(cameras[0])
-        fetchLogged()
       })
     } else {
       preparePhoto()
@@ -132,37 +127,52 @@ function showImage(url) {
 }
 
 function fetchLogged() {
-  if ($('ul.collection').length == 0) return
+  if ($('table').length == 0) return
   $.get(
     'loggedlist',
     null,
     function(response) {
-      $('ul.collection').html(null)
-      response.forEach(function(item) {
-        $('ul.collection').append(`
-          <li class="collection-item" style="overflow:hidden">
-            <a href="loggedusers/${item.reference_number}-picture.png" target="_blank">
-              ${item.nickname || 'N/A'} logged in
-            </a>
-            <div style="float:right;font-size:10px">
-              ${moment(item.logged_at).format('MMM D, YYYY h:mm:ss A')}
-            </div>
-          </li>
-        `)
+      dTable.clear()
+      $.each(response, function(id, value) {
+        dTable.row.add([
+          id + 1,
+          value.first_name + ' ' + value.last_name,
+          value.nickname,
+          value.reference_number,
+          `<img class="materialboxed" src="loggedusers/${value.reference_number}-qrcode.webp">`,
+          `<img class="materialboxed" src="loggedusers/${value.reference_number}-picture.png">`,
+          value.logged_at
+        ])
       })
-      $('.collection-item a').click(function(e) {
-        e.preventDefault()
-        $('.materialboxed')
-          .attr('src', $(this).attr('href'))
-          .materialbox()
-        setTimeout(function() {
-          let image = M.Materialbox.getInstance($('.materialboxed'))
-          image.open()
-        }, 100)
-      })
+      dTable.draw()
+      $('.materialboxed').materialbox()
     },
     'json'
   )
 }
 
-fetchLogged()
+$(document).ready(function() {
+  window.dTable = $('table').DataTable({
+    oLanguage: {
+      sStripClasses: '',
+      sSearch: '',
+      sSearchPlaceholder: 'Enter Keywords Here',
+      sInfo: '_START_ -_END_ of _TOTAL_',
+      sLengthMenu:
+        '<span>Rows per page:</span><select class="browser-default">' +
+        '<option value="10">10</option>' +
+        '<option value="20">20</option>' +
+        '<option value="30">30</option>' +
+        '<option value="40">40</option>' +
+        '<option value="50">50</option>' +
+        '<option value="-1">All</option>' +
+        '</select></div>'
+    },
+    bAutoWidth: false,
+    search: {
+      smart: false
+    },
+    order: [[0, 'desc']]
+  })
+  fetchLogged()
+})
