@@ -16,15 +16,23 @@
 </head>
 <body>
 <div class="row scanner">
-  <div class="col m9" align="center" style="padding-top:40px">
-    <video id="preview"></video>
-    <br><br>
-    <h1 class="data" style="color:red"></h1>
-  </div>
-  <div class="col m3" style="background-color:white;height:100%;max-height:100%;padding:0;overflow:auto">
-    <ul class="collection" style="margin:0">
-    </ul>
-  </div>
+  @if(!Request::has("loggedlist"))
+    <div class="col m12" align="center" style="padding-top:110px">
+      <div style="height:500px;width:500px;overflow:hidden">
+        <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
+      </div>
+    </div>
+  @else
+    <div class="col m9" align="center" style="padding-top:110px">
+      <div style="height:500px;width:500px;overflow:hidden">
+        <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
+      </div>
+    </div>
+    <div class="col m3" style="background-color:white;height:100%;max-height:100%;padding:0;overflow:auto">
+      <ul class="collection" style="margin:0">
+      </ul>
+    </div>
+  @endif
 </div>
 <center><img class="materialboxed" src=""></center>
 <script src="{{ asset('js/app.js') }}"></script>

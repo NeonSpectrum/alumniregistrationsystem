@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Common;
 use App\Exports\DataExport;
 use App\Exports\SentTicketExport;
+use App\Logged;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
@@ -162,24 +163,25 @@ class DashboardController extends Controller {
     if ($request->type == 'qrcode') {
       $user = Common::getRowByReferenceNumber($code);
 
-      // if ($user->first()->logged_at) {
-      //   return response()->json(['success' => false]);
-      // } else {
-      $image = str_replace('data:image/webp;base64,', '', $image);
+      if (!$user->first()) {
+        return response()->json(['success' => false, 'error' => 'Invalid QR Code.']);
+      } else if (Logged::where('reference_number', $code)->first()) {
+        return response()->json(['success' => false, 'error' => 'Already Logged In.']);
+      } else {
+        $image = str_replace('data:image/webp;base64,', '', $image);
 
-      $image = str_replace(' ', '+', $image);
+        $image = str_replace(' ', '+', $image);
 
-      $image = base64_decode($image);
+        $image = base64_decode($image);
 
-      $file = public_path('loggedusers') . '/' . $code . '-qrcode.webp';
+        $file = public_path('loggedusers') . '/' . $code . '-qrcode.webp';
 
-      file_put_contents($file, $image);
+        file_put_contents($file, $image);
 
-      $user->update([
-        'logged_at' => date('Y-m-d H:i:s')
-      ]);
-      return response()->json(['success' => true, 'name' => $user->first()->first_name . ' ' . $user->first()->last_name]);
-      // }
+        Logged::create(['reference_number' => $code]);
+
+        return response()->json(['success' => true, 'name' => $user->first()->first_name . ' ' . $user->first()->last_name]);
+      }
     } else if ($request->type == 'picture') {
       $image = str_replace('data:image/png;base64,', '', $image);
 
@@ -191,16 +193,31 @@ class DashboardController extends Controller {
 
       file_put_contents($file, $image);
 
-      $user->update([
-        'logged_at' => date('Y-m-d H:i:s')
-      ]);
       return response()->json(['success' => true]);
     }
   }
 
   protected function loggedList() {
-    $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, reference_number, logged_at FROM `users` UNION SELECT first_name, last_name, reference_number,logged_at FROM companions) AS U WHERE logged_at IS NOT NULL ORDER BY logged_at DESC');
+    $logged = Logged::all();
+
+    $data = [];
+
+    foreach ($logged as $row) {
+      $data[] = \DB::select("SELECT * FROM (SELECT nickname, reference_number FROM `users` UNION SELECT nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+    }
 
     return response()->json($data);
+  }
+
+  protected function raffle() {
+    $logged = Logged::all();
+
+    $data = [];
+
+    foreach ($logged as $row) {
+      $data[] = \DB::select("SELECT * FROM (SELECT nickname, reference_number FROM `users` UNION SELECT nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+    }
+
+    return view('raffle', ['data' => $data]);
   }
 }

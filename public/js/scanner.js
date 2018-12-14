@@ -11,7 +11,6 @@ let scanner = new Instascan.Scanner({
 })
 
 scanner.addListener('scan', function(content, image) {
-  $('h1.data').text('Loading...')
   window.currentData = { code: content }
   $.ajax({
     type: 'POST',
@@ -24,16 +23,38 @@ scanner.addListener('scan', function(content, image) {
     .done(function(response) {
       if (response.success) {
         currentData.name = response.name
-        preparePhoto()
-        scanner.stop()
+        swal({
+          title: 'Valid QR Code',
+          text: 'Retrieving data...',
+          timer: 3000,
+          onOpen: () => {
+            swal.showLoading()
+          }
+        })
+        setTimeout(function() {
+          swal({
+            title: 'Welcome, ' + response.name,
+            text: 'Start Taking Photos.',
+            timer: 3000,
+            onOpen: () => {
+              swal.showLoading()
+            }
+          })
+          setTimeout(function() {
+            preparePhoto()
+            scanner.stop()
+          }, 3000)
+        }, 3000)
       } else {
-        $('h1.data').text('Already Logged In')
+        swal({
+          title: 'Already Logged In',
+          html: '<span style="color:red">See registration committee</span>',
+          timer: 3000,
+          showConfirmButton: false
+        })
       }
     })
     .always(function() {
-      setTimeout(function() {
-        $('h1.data').text(null)
-      }, 3000)
       fetchLogged()
     })
 })
@@ -59,9 +80,6 @@ function preparePhoto() {
       let player
       swal({
         html: `
-          <h1 style="margin:0">
-            Welcome, ${currentData.name}
-          </h1>
           <video id="capturePhoto" style="transform:rotateY(180deg)"></video>
           <center>
             Capturing in<br>
@@ -103,23 +121,10 @@ function showImage(url) {
       $.ajax({
         type: 'POST',
         data: { type: 'picture', code: currentData.code, image: url }
+      }).always(function() {
+        scanner.start(cameras[0])
+        fetchLogged()
       })
-        .done(function(response) {
-          if (response.success) {
-            currentData.name = response.name
-            preparePhoto()
-            scanner.stop()
-          } else {
-            swal('Already Logged In.')
-          }
-        })
-        .always(function() {
-          scanner.start(cameras[0])
-          setTimeout(function() {
-            $('h1.data').text(null)
-          }, 3000)
-          fetchLogged()
-        })
     } else {
       preparePhoto()
     }
@@ -127,6 +132,7 @@ function showImage(url) {
 }
 
 function fetchLogged() {
+  if ($('ul.collection').length == 0) return
   $.get(
     'loggedlist',
     null,
@@ -135,8 +141,8 @@ function fetchLogged() {
       response.forEach(function(item) {
         $('ul.collection').append(`
           <li class="collection-item" style="overflow:hidden">
-            <a href="loggedusers/${item.reference_number}-qrcode.webp" target="_blank">
-              ${item.first_name} ${item.last_name} (${item.reference_number}) logged in
+            <a href="loggedusers/${item.reference_number}-picture.png" target="_blank">
+              ${item.nickname || 'N/A'} logged in
             </a>
             <div style="float:right;font-size:10px">
               ${moment(item.logged_at).format('MMM D, YYYY h:mm:ss A')}
