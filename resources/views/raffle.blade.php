@@ -24,7 +24,7 @@
 <script src="{{ asset('js/materialize.min.js') }}"></script>
 <script src="{{ asset('js/jquery-ui-1.8.23.custom.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
-<script src="{{ asset('js/raffle.js') }}"></script>
+<script src="{{ asset('js/raffle.js') }}?v={{ filemtime(public_path('js/raffle.js')) }}"></script>
 <script>
   var imported = @json($data);
   $('.enter-names').hide();
