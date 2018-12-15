@@ -63,7 +63,6 @@ if ($('#preview').length > 0) {
   })
   Instascan.Camera.getCameras()
     .then(function(cameras) {
-      window.cameras = cameras
       if (cameras.length > 0) {
         scanner.start(cameras[0])
       } else {
@@ -125,7 +124,7 @@ function showImage(url) {
         type: 'POST',
         data: { type: 'picture', code: currentData.code, image: url }
       }).always(function() {
-        scanner.start(cameras[0])
+        location.reload()
       })
     } else {
       preparePhoto()
