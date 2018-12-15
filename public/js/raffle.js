@@ -159,7 +159,6 @@ var pickName = function() {
     })
   } else {
     choices = $(choices[0].dom)
-    $.post('chooseName.php', { name: choices.text() })
     imported = imported.filter(function(index) {
       return index.reference_number != choices.data('ref')
     })

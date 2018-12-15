@@ -211,7 +211,7 @@ class DashboardController extends Controller {
   }
 
   protected function raffle() {
-    $logged = Logged::whereTime('created_at', '<', '19:00:00')->get();
+    $logged = Logged::whereTime('created_at', '<', '19:00:00')->where('winner', 0)->get();
 
     $data = [];
 
