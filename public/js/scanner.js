@@ -144,7 +144,7 @@ function fetchLogged() {
       $.each(response, function(id, value) {
         dTable.row.add([
           id + 1,
-          value.first_name + ' ' + value.last_name,
+          value.first_name + ' ' + value.last_name + ' (' + value.batch + ')',
           value.nickname,
           value.reference_number,
           `<img class="materialboxed" src="loggedusers/${value.reference_number}-qrcode.webp" height="100">`,
