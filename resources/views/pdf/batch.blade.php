@@ -8,11 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
     @foreach($data as $row)
-      <td>{{ $row->batch == $batch ? $row->batch : '' }}</td>
-      <td>{{ $row->first_name . " " . $row->last_name }}</td>
+      <tr>
+        <td>{{ $row->batch == $batch ? $row->batch : '' }}</td>
+        <td>{{ $row->first_name . " " . $row->last_name }}</td>
+      </tr>
     @endforeach
-    </tr>
   </tbody>
 </table>
