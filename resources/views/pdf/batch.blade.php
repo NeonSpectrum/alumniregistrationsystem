@@ -1,5 +1,4 @@
 @php($batch = 0)
-@php($batchYear = [])
 <table width="100%">
   <thead>
     <tr>
@@ -15,26 +14,6 @@
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
         </tr>
       @endif
-<?php
-$batch             = $row->batch;
-$batchYear[$batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1;
-?>
     @endforeach
   </tbody>
 </table>
-Most Visited Batch Year: {{ getMostVisited($batchYear)["year"] }}
-
-@php
-function getMostVisited($batchYear){
-  $max = ["year" => 0, "count" => 0];
-
-  foreach ($batchYear as $year => $value) {
-    if($max["count"] < $value){
-      $max["year"] = $year;
-      $max["count"] = $value;
-    }
-  }
-
-  $return $max;
-}
-@endphp
