@@ -6,69 +6,70 @@ $.ajaxSetup({
   }
 })
 
-let scanner = new Instascan.Scanner({
-  video: document.getElementById('preview'),
-  refractoryPeriod: 3000,
-  captureImage: true
-})
+if ($('#preview').length > 0) {
+  let scanner = new Instascan.Scanner({
+    video: document.getElementById('preview'),
+    refractoryPeriod: 3000,
+    captureImage: true
+  })
 
-scanner.addListener('scan', function(content, image) {
-  window.currentData = { code: content }
-  $.ajax({
-    type: 'POST',
-    data: {
-      image,
-      type: 'qrcode',
-      ...currentData
-    }
-  }).done(function(response) {
-    if (response.success) {
-      currentData.name = response.name
-      swal({
-        title: 'Valid QR Code',
-        text: 'Retrieving data...',
-        timer: 3000,
-        onOpen: () => {
-          swal.showLoading()
-        }
-      })
-      setTimeout(function() {
+  scanner.addListener('scan', function(content, image) {
+    window.currentData = { code: content }
+    $.ajax({
+      type: 'POST',
+      data: {
+        image,
+        type: 'qrcode',
+        ...currentData
+      }
+    }).done(function(response) {
+      if (response.success) {
+        currentData.name = response.name
         swal({
-          title: 'Welcome, ' + response.name,
-          text: 'Start Taking Photos.',
+          title: 'Valid QR Code',
+          text: 'Retrieving data...',
           timer: 3000,
           onOpen: () => {
             swal.showLoading()
           }
         })
         setTimeout(function() {
-          preparePhoto()
-          scanner.stop()
+          swal({
+            title: 'Welcome, ' + response.name,
+            text: 'Start Taking Photos.',
+            timer: 3000,
+            onOpen: () => {
+              swal.showLoading()
+            }
+          })
+          setTimeout(function() {
+            preparePhoto()
+            scanner.stop()
+          }, 3000)
         }, 3000)
-      }, 3000)
-    } else {
-      swal({
-        title: 'Already Logged In',
-        html: '<span style="color:red">See registration committee</span>',
-        timer: 3000,
-        showConfirmButton: false
-      })
-    }
+      } else {
+        swal({
+          title: 'Already Logged In',
+          html: '<span style="color:red">See registration committee</span>',
+          timer: 3000,
+          showConfirmButton: false
+        })
+      }
+    })
   })
-})
-Instascan.Camera.getCameras()
-  .then(function(cameras) {
-    window.cameras = cameras
-    if (cameras.length > 0) {
-      scanner.start(cameras[0])
-    } else {
-      console.error('No cameras found.')
-    }
-  })
-  .catch(function(e) {
-    console.error(e)
-  })
-
+  Instascan.Camera.getCameras()
+    .then(function(cameras) {
+      window.cameras = cameras
+      if (cameras.length > 0) {
+        scanner.start(cameras[0])
+      } else {
+        console.error('No cameras found.')
+      }
+    })
+    .catch(function(e) {
+      console.error(e)
+    })
+}
 function preparePhoto() {
   navigator.mediaDevices
     .getUserMedia({
@@ -127,7 +128,6 @@ function showImage(url) {
     }
   })
 }
-
 function fetchLogged() {
   if ($('table').length == 0) return
   $.get(
