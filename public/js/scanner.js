@@ -143,8 +143,8 @@ function fetchLogged() {
           value.first_name + ' ' + value.last_name,
           value.nickname,
           value.reference_number,
-          `<img class="materialboxed" src="loggedusers/${value.reference_number}-qrcode.webp">`,
-          `<img class="materialboxed" src="loggedusers/${value.reference_number}-picture.png">`,
+          `<img class="materialboxed" src="loggedusers/${value.reference_number}-qrcode.webp" height="100">`,
+          `<img class="materialboxed" src="loggedusers/${value.reference_number}-picture.png" height="100">`,
           value.logged_at
         ])
       })
