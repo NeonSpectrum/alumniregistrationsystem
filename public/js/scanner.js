@@ -54,7 +54,7 @@ if ($('#preview').length > 0) {
         }, 3000)
       } else {
         swal({
-          title: 'Already Logged In',
+          title: response.error,
           html: '<span style="color:red">See registration committee</span>',
           timer: 3000,
           showConfirmButton: false
