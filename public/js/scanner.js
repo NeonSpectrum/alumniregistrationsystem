@@ -1,3 +1,5 @@
+var prevResponse = []
+
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -132,6 +134,8 @@ function fetchLogged() {
     'loggedlist',
     null,
     function(response) {
+      if (_.isEqual(prevResponse, response)) return
+      prevResponse = response
       dTable.clear()
       $.each(response, function(id, value) {
         dTable.row.add([
@@ -175,4 +179,7 @@ $(document).ready(function() {
     order: [[0, 'desc']]
   })
   fetchLogged()
+  setInterval(function() {
+    fetchLogged()
+  }, 5000)
 })

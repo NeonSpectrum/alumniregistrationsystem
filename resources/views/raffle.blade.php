@@ -12,7 +12,10 @@
   <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
   <title>Alumni Registration Scanner</title>
   <style>
-    body {overflow:hidden !important;}
+    body {
+      background: white;
+      overflow:hidden !important;
+    }
   </style>
 </head>
 <body>

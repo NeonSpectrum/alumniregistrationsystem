@@ -1,3 +1,5 @@
+var colors = ['#4daf7c', '#87d37c', '#00b16a', '#2ecc71', '#3fc380']
+var transitionColor = ['#ff8d06', '#d91400', '#82dc2c']
 /**
  * Raffle
  * 2012
@@ -7,6 +9,10 @@
 
 var inProgress = false
 var size = 60
+
+function getRandomColor(color) {
+  return color[Math.floor(Math.random() * color.length)]
+}
 
 function map(a, f) {
   for (var i = 0; i < a.length; i++) {
@@ -47,7 +53,7 @@ function Ticket(name, ref) {
       position: 'absolute',
       top: me.dom.offset().top,
       left: me.dom.offset().left,
-      background: 'gray'
+      background: getRandomColor(colors)
     })
   }
   this.decrement = function(length, callback) {
@@ -56,7 +62,7 @@ function Ticket(name, ref) {
     if (this.points == 0) {
       var directions = ['up', 'down', 'left', 'right']
       this.dom
-        .css({ 'background-color': 'white' })
+        .css({ 'background-color': getRandomColor(transitionColor) })
         .hide(
           'drop',
           { direction: directions[length % directions.length] },
@@ -164,15 +170,20 @@ var pickName = function() {
     var reference_number = choices.data('ref')
     var name = choices.text()
     swal({
-      title: 'Congratulations!',
       html: `
-        <img src="loggedusers/${reference_number}-picture.png" alt="" height="500px" />
-        <h5 style="margin:0">${name}</h5>
+        <div style="font-size:85px;color:orange;font-weight:bold">${name}</div>
+        <br>
+        <img src="img/ticket.png" alt="" height="500px" width="500px" style="object-fit:cover" />
+        <div style="font-size:55px;color:orange;font-weight:bold">Congratulations!</div>
       `,
-      showConfirmButton: false
+      customClass: 'swal2-modal-md',
+      showConfirmButton: false,
+      background: 'none',
+      backdrop: 'url(img/ticket-with-overlay.png) 0% 39% / cover no-repeat',
+      allowOutsideClick: false
     }).then(function() {
       inProgress = false
-      $('.ticket')
+      $('.ticket>')
         .show(500)
         .unbind('click')
       setTimeout(function() {
