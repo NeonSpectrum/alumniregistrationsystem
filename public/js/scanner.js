@@ -19,6 +19,7 @@ if ($('#preview').length > 0) {
 
   scanner.addListener('scan', function(content, image) {
     window.currentData = { code: content }
+    scanner.stop()
     $.ajax({
       type: 'POST',
       data: {
