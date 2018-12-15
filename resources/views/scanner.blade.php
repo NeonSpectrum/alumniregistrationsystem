@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
   <title>Alumni Registration Scanner</title>
-  @isset(!isset($logged))
+  @if(isset(!$logged))
   <style>
     body {overflow:hidden !important;}
   </style>
