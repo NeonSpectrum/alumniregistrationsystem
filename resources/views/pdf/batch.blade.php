@@ -1,6 +1,6 @@
 @php($batch = 1992)
 
-<table>
+<table width="100%">
   <thead>
     <tr>
       <th>Batch Year</th>
