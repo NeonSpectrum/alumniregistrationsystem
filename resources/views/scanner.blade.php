@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="row scanner">
-  @if(!Request::has("loggedlist"))
+  @if(!isset($logged))
     <div class="col m12" align="center" style="padding-top:110px">
       <div style="height:500px;width:500px;overflow:hidden">
         <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
