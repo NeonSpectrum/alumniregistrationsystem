@@ -22,4 +22,19 @@
     @endforeach
   </tbody>
 </table>
-Most Visited Batch Year: {{ max(array_keys($batchYear)) }}
+Most Visited Batch Year: {{ getMostVisited($batchYear)["year"] }}
+
+@php
+function getMostVisited($batchYear){
+  $max = ["year" => 0, "count" => 0];
+
+  foreach ($batchYear as $year => $value) {
+    if($max["count"] < $value){
+      $max["year"] = $year;
+      $max["count"] = $value;
+    }
+  }
+
+  $return $max;
+}
+@endphp
