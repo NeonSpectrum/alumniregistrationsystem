@@ -224,7 +224,10 @@ class DashboardController extends Controller {
     return view('raffle', ['data' => $data]);
   }
 
-  protected function raffleWinner() {
+  /**
+   * @param Request $request
+   */
+  protected function raffleWinner(Request $request) {
     Logged::where('reference_number', $request->ref)->update([
       'winner' => 1
     ]);
