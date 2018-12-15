@@ -1,5 +1,9 @@
 var prevResponse = []
 
+$(document).ready(function() {
+  $('.dropdown-trigger').dropdown()
+})
+
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

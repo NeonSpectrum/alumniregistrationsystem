@@ -1,3 +1,5 @@
+@php($active = 'logged')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,38 +18,39 @@
   </style>
 </head>
 <body>
-<div class="row scanner">
-  @if(!isset($logged))
-    <div class="col m12" align="center" style="padding-top:110px">
-      <div style="height:500px;width:500px;overflow:hidden">
-        <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
-      </div>
-    </div>
-  @else
-    <div class="col s12">
-      <div class="card material-table">
-        <div class="table-header">
-          <span class="table-title">List of Logged Users</span>
-        </div>
-        <table class="datatable">
-          <thead>
-            <tr>
-              <th width="5%">ID</th>
-              <th>Name</th>
-              <th>Nickname</th>
-              <th>Reference Number</th>
-              <th>QR Code</th>
-              <th>Picture</th>
-              <th>Logged In Time</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  @endif
+@includeWhen(isset($logged), 'navbar')
+@if(!isset($logged))
+<div class="col m12" align="center" style="padding-top:110px">
+  <div style="height:500px;width:500px;overflow:hidden">
+    <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
+  </div>
 </div>
+@else
+<div class="row scanner">
+  <div class="col s12" style="margin: 30px 50px 0 50px">
+    <div class="card material-table">
+      <div class="table-header">
+        <span class="table-title">List of Logged Users</span>
+      </div>
+      <table class="datatable">
+        <thead>
+          <tr>
+            <th width="5%">ID</th>
+            <th>Name</th>
+            <th>Nickname</th>
+            <th>Reference Number</th>
+            <th>QR Code</th>
+            <th>Picture</th>
+            <th>Logged In Time</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+@endif
 <center><img class="materialboxed" src=""></center>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/materialize.min.js') }}"></script>
