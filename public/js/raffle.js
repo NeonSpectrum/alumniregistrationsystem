@@ -4,6 +4,8 @@ $.ajaxSetup({
   }
 })
 
+var excluded = ['2OMMIGXFGD']
+
 var colors = ['#4daf7c', '#87d37c', '#00b16a', '#2ecc71', '#3fc380']
 var transitionColor = ['#ff8d06', '#d91400', '#82dc2c']
 /**
@@ -107,9 +109,11 @@ var makeTicketsWithPoints = function() {
   tickets = []
   $('.ticket').remove()
   map(removeDuplicateNames(imported), function(tdata) {
-    var t = new Ticket(tdata.first_name + ' ' + tdata.last_name, tdata.reference_number)
-    if (t.points > 0) t.dom.appendTo($('body'))
-    tickets.push(t)
+    if (excluded.indexOf(tdata.reference_number) === -1) {
+      var t = new Ticket(tdata.first_name + ' ' + tdata.last_name, tdata.reference_number)
+      if (t.points > 0) t.dom.appendTo($('body'))
+      tickets.push(t)
+    }
   })
   tickets.reverse()
   size = 60
