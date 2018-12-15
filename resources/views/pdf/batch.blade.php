@@ -10,14 +10,14 @@
   <tbody>
     @foreach($data as $row)
       @if($row->batch != 0)
-        @php
-          $batchYear[$row->batch] = $batchYear[$row->batch] ? $batchYear[$row->batch] + 1 : 1;
-        @endphp
         <tr>
           <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
         </tr>
-        @php($batch = $row->batch)
+        @php
+          $batch = $row->batch
+          $batchYear[$batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1;
+        @endphp
       @endif
     @endforeach
   </tbody>
