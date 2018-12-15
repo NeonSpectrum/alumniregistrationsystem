@@ -1,5 +1,4 @@
 @php($batch = 0)
-@php($show = true)
 
 <table width="100%">
   <thead>
@@ -10,12 +9,11 @@
   </thead>
   <tbody>
     @foreach($data as $row)
-      @php($batch = $row->batch)
       <tr>
-        <td>{{ $show ? $row->batch : '' }}</td>
+        <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
         <td>{{ $row->first_name . " " . $row->last_name }}</td>
       </tr>
-      @php($show = $row->batch != $batch)
+      @php($batch = $row->batch)
     @endforeach
   </tbody>
 </table>
