@@ -1,4 +1,5 @@
 @php($batch = 0)
+@php($batchYear = [])
 
 <table width="100%">
   <thead>
@@ -10,6 +11,7 @@
   <tbody>
     @foreach($data as $row)
       @if($row->batch != 0)
+        @php($batchYear[$row->batch]++)
         <tr>
           <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
           <td>{{ $row->first_name . " " . $row->last_name }}</td>

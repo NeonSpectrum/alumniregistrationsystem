@@ -39,7 +39,15 @@ class ReportController extends Controller {
   protected function batchDisplay() {
     $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, nickname, reference_number, batch FROM `users` UNION SELECT first_name, last_name, nickname, reference_number, batch FROM companions) AS U ORDER BY batch ASC');
 
-    $pdf = \PDF::loadView('pdf.batch', ['data' => $data]);
+    $finalData = [];
+
+    foreach ($data as $row) {
+      if (Logged::where('reference_number', $row->reference_number)->first()) {
+        $finalData[] = $row;
+      }
+    }
+
+    $pdf = \PDF::loadView('pdf.batch', ['data' => $finalData]);
 
     return $pdf->stream();
   }
