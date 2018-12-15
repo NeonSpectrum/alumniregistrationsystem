@@ -110,19 +110,20 @@ class MailController extends Controller {
   /**
    * @return mixed
    */
-  protected function display() {
+  protected function display(Request $request) {
     $img = Image::make(public_path('img/ticket1.png'));
 
-    // $img->text(str_pad(1, 5, '0', STR_PAD_LEFT), 20, 20, function ($font) {
+    // $img->text($mail['ref'], 20, 20, function ($font) {
     //   $font->file(public_path('font/Crimson-Roman.ttf'));
     //   $font->size(64);
     //   $font->color('#fdf6e3');
     //   $font->valign('top');
     // });
 
-    $QRCode = \QrCode::format('png')->size(200)->margin(1)->generate('QR Code Generator for Laravel!');
+    $QRCode = \QrCode::format('png')->size(200)->margin(1)->generate($request);
 
     $img->insert($QRCode, 'bottom-right', 20, 20);
-    return $img->response('png');
+
+    $img->response('png');
   }
 }
