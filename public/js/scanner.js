@@ -137,8 +137,8 @@ function fetchLogged() {
     'loggedlist',
     null,
     function(response) {
-      if (_.isEqual(prevResponse, response)) return
-      prevResponse = response
+      // if (_.isEqual(prevResponse, response)) return
+      // prevResponse = response
       dTable.clear()
       $.each(response, function(id, value) {
         dTable.row.add([
