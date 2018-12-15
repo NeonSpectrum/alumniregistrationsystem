@@ -14,10 +14,7 @@
           <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
         </tr>
-        @php
-          $batch = $row->batch
-          $batchYear[$batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1;
-        @endphp
+        @php($batchYear[$batch = $row->batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1)
       @endif
     @endforeach
   </tbody>
