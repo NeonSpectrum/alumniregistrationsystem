@@ -57,6 +57,6 @@
 <script src="{{ asset('js/datatables.min.js') }}"></script>
 <script src="{{ asset('js/datatable-custom.js') }}"></script>
 <script src="{{ asset('js/underscore-min.js') }}"></script>
-<script src="{{ asset('js/scanner.js') }}"></script>
+<script src="{{ asset('js/scanner.js') }}?v={{ filemtime(public_path('js/scanner.js')) }}"></script>
 </body>
 </html>
