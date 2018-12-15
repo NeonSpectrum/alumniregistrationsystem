@@ -160,6 +160,7 @@ var pickName = function() {
   } else {
     choices = $(choices[0].dom)
     $.ajax({
+      type: 'POST',
       data: { ref: choices.data('ref') }
     })
     imported = imported.filter(function(index) {
