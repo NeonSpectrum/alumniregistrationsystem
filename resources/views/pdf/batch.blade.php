@@ -1,4 +1,5 @@
 @php($batch = 0)
+@php($batchYear = [])
 <table width="100%">
   <thead>
     <tr>
@@ -9,6 +10,9 @@
   <tbody>
     @foreach($data as $row)
       @if($row->batch != 0)
+        @php
+          $batchYear[$row->batch] = $batchYear[$row->batch] ? $batchYear[$row->batch] + 1 : 1;
+        @endphp
         <tr>
           <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
@@ -18,3 +22,4 @@
     @endforeach
   </tbody>
 </table>
+Most Visited Batch Year: {{ max(array_keys($batchYear)) }}
