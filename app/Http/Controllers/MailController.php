@@ -124,6 +124,6 @@ class MailController extends Controller {
 
     $img->insert($QRCode, 'bottom-right', 20, 20);
 
-    $img->response('png');
+    return $img->response('png');
   }
 }
