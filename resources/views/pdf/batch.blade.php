@@ -1,4 +1,4 @@
-@php($batch = 1992)
+@php($batch = 0)
 @php($show = true)
 
 <table width="100%">
@@ -10,6 +10,7 @@
   </thead>
   <tbody>
     @foreach($data as $row)
+      @php($batch = $row->batch)
       <tr>
         <td>{{ $show ? $row->batch : '' }}</td>
         <td>{{ $row->first_name . " " . $row->last_name }}</td>
