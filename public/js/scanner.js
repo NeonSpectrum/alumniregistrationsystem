@@ -49,7 +49,6 @@ if ($('#preview').length > 0) {
           })
           setTimeout(function() {
             preparePhoto()
-            scanner.stop()
           }, 3000)
         }, 3000)
       } else {
