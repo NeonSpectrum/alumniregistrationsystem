@@ -15,10 +15,10 @@
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
         </tr>
       @endif
-      @php
-        $batch = $row->batch
-        $batchYear[$batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1;
-      @endphp
+<?php
+$batch             = $row->batch;
+$batchYear[$batch] = $batchYear[$batch] ? $batchYear[$batch] + 1 : 1;
+?>
     @endforeach
   </tbody>
 </table>
