@@ -1,3 +1,9 @@
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+})
+
 var colors = ['#4daf7c', '#87d37c', '#00b16a', '#2ecc71', '#3fc380']
 var transitionColor = ['#ff8d06', '#d91400', '#82dc2c']
 /**
