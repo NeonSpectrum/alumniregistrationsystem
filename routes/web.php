@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     return view('scanner', ['logged' => true]);
   });
   Route::get('raffle', 'DashboardController@raffle');
+  Route::post('raffle', 'DashboardController@raffleWinner');
   Route::post('scanner', 'DashboardController@scanner');
   Route::get('loggedlist', 'DashboardController@loggedList');
   Route::get('logs', 'LogController@show')->name('logs');

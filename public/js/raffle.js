@@ -159,6 +159,7 @@ var pickName = function() {
     })
   } else {
     choices = $(choices[0].dom)
+    $.post('raffle', { ref: choices.data('ref') })
     imported = imported.filter(function(index) {
       return index.reference_number != choices.data('ref')
     })
