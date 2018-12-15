@@ -173,7 +173,7 @@ var pickName = function() {
       html: `
         <div style="font-size:85px;color:orange;font-weight:bold">${name}</div>
         <br>
-        <img src="img/ticket.png" alt="" height="1000px" width="1000px" style="object-fit:cover" />
+        <img src="loggedusers/${reference_number}-picture.png" alt="" height="1000px" width="1000px" style="object-fit:cover" />
         <div style="font-size:55px;color:orange;font-weight:bold">Congratulations!</div>
       `,
       customClass: 'swal2-modal-md',
