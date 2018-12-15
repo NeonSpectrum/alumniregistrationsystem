@@ -25,6 +25,7 @@
     <div style="height:500px;width:500px;overflow:hidden">
       <video id="preview" height="500px" width="500px" style="object-fit:cover"></video>
     </div>
+    <h1>Please scan your e-ticket QR code.</h1>
   </div>
 </div>
 @else
