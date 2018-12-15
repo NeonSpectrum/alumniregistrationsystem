@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
   });
 
   Route::get('/report', 'ReportController@show')->name('report');
+  Route::get('report/batch', 'ReportController@batchDisplay')->name('batch');
 
 });
 

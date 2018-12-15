@@ -32,4 +32,15 @@ class ReportController extends Controller {
 
     return $pdf->stream();
   }
+
+  /**
+   * @return mixed
+   */
+  protected function batchDisplay() {
+    $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, nickname, reference_number, batch FROM `users` UNION SELECT first_name, last_name, nickname, reference_number, batch FROM companions) AS U ORDER BY batch ASC');
+
+    $pdf = \PDF::loadView('pdf.batch', ['data' => $data]);
+
+    return $pdf->stream();
+  }
 }
