@@ -13,6 +13,7 @@
           <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
           <td>{{ $row->first_name . " " . $row->last_name }}</td>
         </tr>
+        @php($batch = $row->batch)
       @endif
     @endforeach
   </tbody>
