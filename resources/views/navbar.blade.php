@@ -5,6 +5,7 @@
       <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="dropdown-trigger" href="#" data-target="dropdown1">Dashboard<i class="material-icons right">arrow_drop_down</i></a></li>
       <li class="{{ $active == 'scanner' ? 'active' : '' }}"><a href="{{ url('/scanner') }}">Scanner</a></li>
       <li class="{{ $active == 'scanner' ? 'active' : '' }}"><a href="{{ url('/scanner?loggedlist') }}">Logged List</a></li>
+      <li class="{{ $active == 'raffle' ? 'active' : '' }}"><a href="{{ url('/raffle') }}">Raffle</a></li>
       <li class="{{ $active == 'logs' ? 'active' : '' }}"><a href="{{ url('/logs') }}">Logs</a></li>
       <li><a href="{{ url('/logout') }}" onclick="return confirm('Are you sure do you want to logout?')">Logout</a></li>
     </ul>
