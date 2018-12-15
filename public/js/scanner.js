@@ -20,7 +20,7 @@ if ($('#preview').length > 0) {
   scanner.addListener('scan', function(content, image) {
     window.currentData = { code: content }
     scanner.stop()
-    $('.scanner>h1').remove()
+    $('.scanner h1').remove()
     $.ajax({
       type: 'POST',
       data: {
