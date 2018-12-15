@@ -9,11 +9,13 @@
   </thead>
   <tbody>
     @foreach($data as $row)
-      <tr>
-        <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
-        <td>{{ $row->first_name . " " . $row->last_name }}</td>
-      </tr>
-      @php($batch = $row->batch)
+      @if($row->batch != 0)
+        <tr>
+          <td>{{ $batch !== $row->batch ? $row->batch : '' }}</td>
+          <td>{{ $row->first_name . " " . $row->last_name }}</td>
+        </tr>
+        @php($batch = $row->batch)
+      @endif
     @endforeach
   </tbody>
 </table>
