@@ -219,7 +219,7 @@ class DashboardController extends Controller {
       $data[] = \DB::select("SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
     }
 
-    $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U');
+    // $data = \DB::select('SELECT * FROM (SELECT first_name, last_name, nickname, reference_number FROM `users` UNION SELECT first_name, last_name, nickname, reference_number FROM companions) AS U');
 
     return view('raffle', ['data' => $data]);
   }
