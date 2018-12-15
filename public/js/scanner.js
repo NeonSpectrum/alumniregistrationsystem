@@ -59,6 +59,7 @@ if ($('#preview').length > 0) {
           timer: 3000,
           showConfirmButton: false
         })
+        scanner.start()
       }
     })
   })
