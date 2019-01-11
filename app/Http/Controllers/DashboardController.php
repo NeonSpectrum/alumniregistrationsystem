@@ -203,7 +203,7 @@ class DashboardController extends Controller {
     $data = [];
 
     foreach ($logged as $i => $row) {
-      $data[$i]            = \DB::select("SELECT * FROM (SELECT first_name, last_name, nickname, reference_number, batch FROM `users` UNION SELECT first_name, last_name, nickname, reference_number, batch FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
+      $data[$i]            = \DB::select("SELECT * FROM (SELECT first_name, last_name, nickname, reference_number, batch, company, job_title FROM `users` UNION SELECT first_name, last_name, nickname, reference_number, batch FROM companions) AS U WHERE reference_number='" . $row->reference_number . "'")[0];
       $data[$i]->logged_at = $row->updated_at->format('F d, Y h:i:s A');
     }
 
