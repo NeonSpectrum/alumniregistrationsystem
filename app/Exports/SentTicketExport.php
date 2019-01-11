@@ -28,7 +28,11 @@ class SentTicketExport implements FromView, ShouldAutoSize {
         'names' => join('<br>', $names)
       ];
 
-      $user->date_sent = \DB::table('logs')->whereRaw('action LIKE "%Ticket%' . $user->email_address . '%"')->latest()->first()->created_at;
+      if ($date_sent = \DB::table('logs')->whereRaw('action LIKE "%Ticket%' . $user->email_address . '%"')->latest()->first()) {
+        $user->date_sent = $date_sent->created_at;
+      } else {
+        $user->date_sent = null;
+      }
     }
 
     return view('exports.sentticket', ['data' => $users]);
